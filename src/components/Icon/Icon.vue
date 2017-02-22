@@ -5,7 +5,7 @@ refer: http://fontawesome.io/examples/
   type: 'check' //icon类型 必须
   size: '5x' //大小
   rotate: '90' //旋转角度
-  flip: true //horizontal or vertical
+  flip: horizontal or vertical
   fw: true //fixed width
   spin: true //转动
   others: '...others' //其他
