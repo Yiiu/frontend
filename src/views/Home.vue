@@ -14,8 +14,7 @@
         <router-link :to="{path: 'singip'}" class="singin" exact>注册</router-link>
       </div>
     </nav>
-    <section class="introduce">
-    </section>
+    <section class="introduce"></section>
   </div>
 </template>
 
@@ -53,8 +52,14 @@ export default {
 <style lang="scss">
 @import '~common/stylesheets/core';
 
+html, body, #app{
+  height: 100%;
+}
+
 .home {
+  position: relative;
   display: block;
+  height: 100%;
 
   .index-nav {
     position: absolute;
@@ -141,10 +146,11 @@ export default {
   .introduce {
     position: relative;
     width: 100%;
-    height: 600px;
+    height: calc(100vh - 136px);
+    min-height: 300px;
     background-image: url(https://assetcdn.500px.org/assets/static_pages/home/cover_bg-fe148a3a3e535cdc3976a47578ce64ba.jpg);
     background-size: cover;
-    background-position: 50%;
+    background-position: left;
     background-repeat: no-repeat;
     transform: translate3d(0px, 0px, 0px);
   }
