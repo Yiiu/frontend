@@ -28,7 +28,13 @@ module.exports = {
       'vue$': 'vue/dist/vue.common.js',
       'src': resolve('src'),
       'assets': resolve('src/assets'),
-      'components': resolve('src/components')
+      'components': resolve('src/components'),
+      'api': resolve('src/api'),
+      'common': resolve('src/common'),
+      'asset': resolve('src/asset'),
+      'config': resolve('src/config'),
+      'store': resolve('src/store'),
+      'router': resolve('src/router')
     }
   },
   module: {
@@ -36,7 +42,7 @@ module.exports = {
       {
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',
-        enforce: "pre",
+        enforce: 'pre',
         include: [resolve('src'), resolve('test')],
         options: {
           formatter: require('eslint-friendly-formatter')
