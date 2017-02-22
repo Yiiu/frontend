@@ -4,11 +4,13 @@
     {{ soap }}
     </h1>
     <p @click="onClick">Switch</p>
+    <Icon type="bug" size="2x" spin />
   </div>
 </template>
 
 <script>
 import { capitalize } from 'common/javascripts/util'
+import Icon from 'components/Icon'
 export default {
   data () {
     return {
@@ -24,6 +26,9 @@ export default {
     soap () {
       return this.$store.state.index.soap ? capitalize(this.name) : this.name
     }
+  },
+  components: {
+    Icon
   }
 }
 </script>
