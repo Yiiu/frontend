@@ -13,7 +13,7 @@ refer: http://fontawesome.io/examples/
 -->
 
 <template>
-  <i :class="['soap-icon icon fa', style]"></i>
+  <i :class="['soap-icon fa', style]"></i>
 </template>
 
 <script>
@@ -24,14 +24,8 @@ refer: http://fontawesome.io/examples/
         type: String,
         required: true
       },
-      size: {
-        type: String,
-        default: 'lg'
-      },
-      rotate: {
-        type: Number,
-        default: 0
-      },
+      size: String,
+      rotate: Number,
       flip: String,
       fw: Boolean,
       spin: Boolean,
@@ -43,12 +37,12 @@ refer: http://fontawesome.io/examples/
         let p = ' fa-'
 
         style += p + this.type
-        this.size !== '' ? style += p + this.size : void 0
-        this.rotate > 0 ? style += p + 'rotate-' + this.rotate : void 0
-        this.flip !== '' ? style += p + this.flip : void 0
-        this.fw ? style += p + 'this.fw' : void 0
+        this.size ? style += p + this.size : void 0
+        this.rotate ? style += p + 'rotate-' + this.rotate : void 0
+        this.flip ? style += p + this.flip : void 0
+        this.fw ? style += p + 'fw' : void 0
         this.spin ? style += p + 'spin' : void 0
-        this.others !== '' ? style += this.others : void 0
+        this.others ? style += ' ' + this.others : void 0
         return style
       }
     }
