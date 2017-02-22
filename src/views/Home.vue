@@ -14,18 +14,16 @@ import Icon from 'components/Icon'
 export default {
   data () {
     return {
+      soap: 'hello soap',
       name: 'hello soap'
     }
   },
   methods: {
     onClick () {
-      this.$store.dispatch('test')
+      this.soap = this.soap === this.name ? capitalize(this.name) : this.name
     }
   },
   computed: {
-    soap () {
-      return this.$store.state.index.soap ? capitalize(this.name) : this.name
-    }
   },
   components: {
     Icon
