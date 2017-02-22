@@ -156,7 +156,6 @@ html, body, #app{
   }
 
   @include max-screen(1200px) {
-    background-color: $pink;
 
     h1, p {
       color: $white;
