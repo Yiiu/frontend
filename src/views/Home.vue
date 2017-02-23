@@ -11,7 +11,7 @@
       </ul>
       <div class="right">
         <router-link :to="{path: 'login'}" class="login" exact>登录</router-link>
-        <router-link :to="{path: 'singip'}" class="singin" exact>注册</router-link>
+        <router-link :to="{path: 'singup'}" class="singup" exact>注册</router-link>
       </div>
     </nav>
     <section class="introduce"></section>
@@ -113,7 +113,7 @@ html, body, #app{
         margin-left: 30px;
       }
 
-      a.singin {
+      a.singup {
         display: inline-block;
         line-height: 26px;
         height: 28px;
@@ -147,7 +147,7 @@ html, body, #app{
     position: relative;
     width: 100%;
     height: calc(100vh - 136px);
-    min-height: 300px;
+    min-height: 320px;
     background-image: url(https://assetcdn.500px.org/assets/static_pages/home/cover_bg-fe148a3a3e535cdc3976a47578ce64ba.jpg);
     background-size: cover;
     background-position: left;
