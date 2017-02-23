@@ -51,15 +51,9 @@ export default {
 
 <style lang="scss">
 @import '~common/stylesheets/core';
-
-html, body, #app{
-  height: 100%;
-}
-
 .home {
   position: relative;
   display: block;
-  height: 100%;
 
   .index-nav {
     position: absolute;
