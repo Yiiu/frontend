@@ -1,8 +1,0 @@
-/**
- * 公共Mixin
- */
-@mixin max-screen($res) {
-    @media ( max-width: $res) {
-        @content;
-    }
-}
