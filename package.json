@@ -23,6 +23,7 @@
   "keywords": [],
   "author": "Your name here",
   "devDependencies": {
+    "axios": "^0.16.2",
     "babel-core": "^6.7.6",
     "babel-eslint": "^7.1.0",
     "babel-loader": "^6.2.4",
@@ -69,6 +70,7 @@
     "react-router-dom": "^4.1.1",
     "react-router-redux": "^4.0.8",
     "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "rimraf": "^2.5.2",
     "sinon": "^1.17.3",
     "style-loader": "^0.13.1",

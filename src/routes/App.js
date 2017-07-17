@@ -4,12 +4,23 @@ import {
   Route,
   Link
 } from 'react-router-dom'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 import Index from './routes/Index'
 
-import {Header} from 'components'
+import { setUserMyInfoRemote } from 'actions/users'
+
+import { Header } from 'components'
 
 class AppComponent extends React.Component {
+  componentDidMount () {
+    const { setUserMyInfoRemote } = this.props;
+    setUserMyInfoRemote()
+      .then(e => console.log(e))
+      .then(err => console.log(err))
+  }
+
   render() {
     return (
       <Router history={history}>
@@ -28,4 +39,9 @@ const About = () => (
   </div>
 )
 
-export default AppComponent
+export default connect(
+  state => ({}),
+  dispatch => bindActionCreators({
+    setUserMyInfoRemote
+  }, dispatch)
+)(AppComponent)

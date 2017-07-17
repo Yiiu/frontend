@@ -9,8 +9,10 @@
  */
 /* Populated by react-webpack-redux:reducer */
 import { combineReducers } from 'redux'
-import Photos from './photos/reducer'
+import Photos from './photos'
+import Users from './users'
 
-export default  combineReducers({
-  Photos
+export default combineReducers({
+  Photos,
+  Users
 })
