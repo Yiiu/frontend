@@ -1,17 +1,21 @@
 import React from 'react'
 import {
-  BrowserRouter as Router,
+  Router,
   Route,
   Link
 } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import createBrowserHistory from 'history/createBrowserHistory'
 
-import Index from './routes/Index'
+const history = createBrowserHistory()
+
 
 import { setUserMyInfoRemote } from 'actions/users'
 
-import { Header } from 'components'
+import HomePage from './components/HomePage'
+import Account from './routes/Account/index.js'
+import SignIn from './routes/Account/components/SignIn'
 
 class AppComponent extends React.Component {
   componentDidMount () {
@@ -25,19 +29,14 @@ class AppComponent extends React.Component {
     return (
       <Router history={history}>
         <div>
-          <Header />
-          <Route exact path="/" component={ Index }/>
-          <Route path="/about" component={ About }/>
+          <Route path="/" component={HomePage} />
+          <Route path="/account" component={Account} />
+          <Route path="/account/SignIn" component={SignIn} />
         </div>
       </Router>
     )
   }
 }
-const About = () => (
-  <div>
-    <h2>About</h2>
-  </div>
-)
 
 export default connect(
   state => ({}),
