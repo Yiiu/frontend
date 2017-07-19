@@ -2,7 +2,8 @@ import React from 'react'
 import {
   Router,
   Route,
-  Link
+  Link,
+  Switch
 } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -10,16 +11,18 @@ import createBrowserHistory from 'history/createBrowserHistory'
 
 const history = createBrowserHistory()
 
-
 import { setUserMyInfoRemote } from 'actions/users'
 
+import { Header } from 'components'
 import HomePage from './components/HomePage'
 import Account from './routes/Account/index.js'
-import SignIn from './routes/Account/components/SignIn'
+
+import styles from 'styles/main.less'
+
 
 class AppComponent extends React.Component {
   componentDidMount () {
-    const { setUserMyInfoRemote } = this.props;
+    const { setUserMyInfoRemote } = this.props
     setUserMyInfoRemote()
       .then(e => console.log(e))
       .then(err => console.log(err))
@@ -28,11 +31,13 @@ class AppComponent extends React.Component {
   render() {
     return (
       <Router history={history}>
-        <div>
-          <Route path="/" component={HomePage} />
-          <Route path="/account" component={Account} />
-          <Route path="/account/SignIn" component={SignIn} />
-        </div>
+        <section className={ styles.main }>
+          <Header />
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/account" component={Account} />
+          </Switch>
+        </section>
       </Router>
     )
   }

@@ -7,7 +7,9 @@ import {action1, action2} from '../actions/'
 */
 /* Populated by react-webpack-redux:action */
 import * as users from './users'
+import * as account from './account'
 const actions = {
-  ...users
+  ...users,
+  ...account
 }
 export default actions

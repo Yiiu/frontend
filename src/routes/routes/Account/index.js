@@ -1,10 +1,15 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
+
+import SignIn from './routes/SignIn'
 
 export default class Account extends React.Component {
   render () {
-    console.log(this.props.children)
+    const { match: { url } } = this.props
     return (
-      <div>1</div>
+      <section>
+        <Route path={ `${url}/SignIn` } component={ SignIn } />
+      </section>
     )
   }
 }
