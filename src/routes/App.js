@@ -14,8 +14,8 @@ const history = createBrowserHistory()
 import { setUserMyInfoRemote } from 'actions/users'
 
 import { Header } from 'components'
-import HomePage from './components/HomePage'
-import Account from './routes/Account/index.js'
+import Home from './routes/Home'
+import Account from './routes/Account'
 
 import styles from 'styles/main.less'
 
@@ -34,7 +34,7 @@ class AppComponent extends React.Component {
         <section className={ styles.main }>
           <Header />
           <Switch>
-            <Route exact path="/" component={HomePage} />
+            <Route exact path="/" component={Home} />
             <Route path="/account" component={Account} />
           </Switch>
         </section>
