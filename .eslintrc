@@ -1,36 +1,52 @@
 {
-  "parser": "babel-eslint",
   "env": {
-    "browser": true,
-    "node": true,
-    "mocha": true
+    "es6": true,
+    "node": true
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
   },
   "plugins": [
     "react"
   ],
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "0.14.3"
+    }
+  },
   "rules": {
-    "no-console": 0,
+    "strict": 0,
+    "no-unused-vars": [
+      "warn",
+      { "argsIgnorePattern": "^React" }
+    ],
     "indent": [
-        "error",
-        2
+      "error",
+      2,
+      { "SwitchCase": 1 }
     ],
     "linebreak-style": [
-        "error",
-        "windows"
+      "error",
+      "unix"
     ],
     "quotes": [
-        "error",
-        "single"
+      "error",
+      "single"
     ],
     "semi": [
-        "error",
-        "never"
+      "error",
+      "never"
     ],
-    "no-confusing-arrow": 0,
-    "object-curly-newline": 0,
-    "react/jsx-closing-bracket-location": ["off"],
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "react/jsx-space-before-closing": ["off"],
-    "react/prefer-stateless-function": ["off"]
+    "comma-dangle": [
+      "warn",
+      "only-multiline"
+    ],
+    "react/jsx-uses-vars": 1
   }
 }

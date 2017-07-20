@@ -25,7 +25,7 @@ class SignIn extends React.Component {
   handleClick () {
     const { SignInRemote } = this.props
     SignInRemote(this.state)
-      .then(e => {
+      .then(() => {
         console.log('登录成功 OvO')
         this.props.history.push('/')
       })
