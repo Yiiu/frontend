@@ -1,20 +1,20 @@
-import axios from 'axios'
+import axios from 'util/axios'
 
 export const SET_USER_INFO = 'users/SET_USER_INFO'
 export const EMPTY_USER_INFO = 'users/EMPTY_USER_INFO'
 
 export function setUserMyInfoRemote () {
   return (dispatch) => axios.get('/api/user/me')
-  .then(res => {
-    dispatch(setUserInfo(res.data))
-    return res.data
+  .then(info => {
+    dispatch(setUserInfo(info))
+    return info
   })
 }
 
-export function setUserInfo (data) {
+export function setUserInfo (info) {
   return {
     type: SET_USER_INFO,
-    data
+    info
   }
 }
 

@@ -1,37 +1,37 @@
-'use strict';
-const fs = require('fs');
-const path = require('path');
-const npmBase = path.join(__dirname, '../../node_modules');
+'use strict'
+const fs = require('fs')
+const path = require('path')
+const npmBase = path.join(__dirname, '../../node_modules')
 const webpack = require('webpack')
 class WebpackBaseConfig {
   constructor() {
-    this._config = {};
+    this._config = {}
   }
   get includedPackages() {
-    return [].map(pkg => fs.realpathSync(path.join(npmBase, pkg)));
+    return [].map(pkg => fs.realpathSync(path.join(npmBase, pkg)))
   }
   set config(data) {
-    this._config = Object.assign({}, this.defaultSettings, data);
-    return this._config;
+    this._config = Object.assign({}, this.defaultSettings, data)
+    return this._config
   }
   get config() {
-    return this._config;
+    return this._config
   }
   get env() {
-    return 'dev';
+    return 'dev'
   }
   get srcPathAbsolute() {
-    return path.resolve('./src');
+    return path.resolve('./src')
   }
   get testPathAbsolute() {
-    return path.resolve('./test');
+    return path.resolve('./test')
   }
   get defaultSettings() {
     const cssModulesQuery = {
       modules: true,
       importLoaders: 1,
       localIdentName: '[name]-[local]-[hash:base64:5]'
-    };
+    }
     return {
       context: this.srcPathAbsolute,
       devtool: 'eval',
@@ -164,7 +164,7 @@ class WebpackBaseConfig {
         filename: 'app.js',
         publicPath: './assets/'
       },
-      plugins: [,
+      plugins: [
         new webpack.LoaderOptionsPlugin({
           options: {
             context: __dirname,
@@ -181,7 +181,8 @@ class WebpackBaseConfig {
           images: `${ this.srcPathAbsolute }/images/`,
           sources: `${ this.srcPathAbsolute }/sources/`,
           stores: `${ this.srcPathAbsolute }/stores/`,
-          styles: `${ this.srcPathAbsolute }/styles/`
+          styles: `${ this.srcPathAbsolute }/styles/`,
+          util: `${ this.srcPathAbsolute }/util/`
         },
         extensions: [
           '.js',
@@ -192,7 +193,7 @@ class WebpackBaseConfig {
           'node_modules'
         ]
       }
-    };
+    }
   }
 }
-module.exports = WebpackBaseConfig;
+module.exports = WebpackBaseConfig

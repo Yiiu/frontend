@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'util/axios'
 
 import {
   setUserInfo,
@@ -7,9 +7,9 @@ import {
 
 export function SignInRemote (data) {
   return (dispatch) => axios.post('/api/signin', data)
-  .then(res => {
-    dispatch(setUserInfo(res.data.data))
-    return res.data
+  .then(info => {
+    dispatch(setUserInfo(info))
+    return info
   })
 }
 
@@ -17,6 +17,6 @@ export function LogOutRemote (data) {
   return (dispatch) => axios.post('/api/logout', data)
   .then(res => {
     dispatch(emptyUserInfo())
-    return res.data
+    return res
   })
 }

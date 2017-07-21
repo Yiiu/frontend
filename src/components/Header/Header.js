@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Nav from './components/Nav'
 import styles from './style.less'
-export default () => {
+export default ({ isSignIn, userInfo }) => {
   return (
     <header className={ styles.root }>
       <section className={ styles.box }>
@@ -13,9 +13,13 @@ export default () => {
         </Link>
         <Nav />
         <section>
-          <Link to="/account/SignIn">
-            登录
-          </Link>
+          {
+            isSignIn ?
+            <span>{ userInfo.username }</span> :
+            <Link to="/account/SignIn">
+              登录
+            </Link>
+          }
         </section>
       </section>
     </header>

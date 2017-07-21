@@ -1,7 +1,8 @@
 {
   "env": {
     "es6": true,
-    "node": true
+    "node": truell
+
   },
   "parser": "babel-eslint",
   "parserOptions": {

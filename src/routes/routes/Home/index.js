@@ -1,25 +1,24 @@
 import React from 'react'
-import styles from 'styles/main.less'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import {
-  LogOutRemote
-} from 'actions/account'
+  loadPhotoListRemote
+} from 'actions/photos'
 
 class Home extends React.Component {
+  componentDidMount () {
+    const { loadPhotoListRemote } = this.props
+    loadPhotoListRemote()
+  }
   render () {
-    const { userInfo, isSignin, LogOutRemote } = this.props
+    const { photoList } = this.props
+    console.log(photoList)
     return (
-      <div className={ styles.container }>
+      <div className="container">
         {
-          isSignin ? (
-            <h2>
-              Hello, { userInfo.username } <br />
-              <button onClick={ () => LogOutRemote() }>退出登录</button>
-            </h2>
-          ) : (
-            <h2>球球你登录一下吧</h2>
+          photoList.map(photo =>
+            <img src={ photo.links }/>
           )
         }
       </div>
@@ -29,10 +28,9 @@ class Home extends React.Component {
 
 export default connect(
   state => ({
-    isSignin: state.Users.isSignin,
-    userInfo: state.Users.userInfo
+    photoList: state.Photos.photoList
   }),
   dispatch => bindActionCreators({
-    LogOutRemote
+    loadPhotoListRemote
   }, dispatch)
 )(Home)
