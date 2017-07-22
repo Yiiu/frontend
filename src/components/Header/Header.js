@@ -8,7 +8,7 @@ export default ({ isSignIn, userInfo }) => {
       <section className={ styles.box }>
         <Link to="/">
           <section className={ styles.logo }>
-            <img src="//yu7er.qiniudn.com/logo.png" />
+            <img src="//cdn.wanan.me/logo.png" />
           </section>
         </Link>
         <Nav />

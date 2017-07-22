@@ -1,0 +1,20 @@
+@margin: 12px;
+.photo-list {
+  :local(.list) {
+    width: 33.33%;
+    margin: 0 @margin;
+    &:last-child {
+      margin-right: 0;
+    }
+    &:first-child {
+      margin-left: 0;
+    }
+    :local(.photo) {
+      margin-bottom: @margin * 2;
+      img {
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+}

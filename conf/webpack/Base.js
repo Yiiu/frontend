@@ -60,7 +60,20 @@ class WebpackBaseConfig {
             test: /\.js?$/,
             include: this.srcPathAbsolute,
             loader: 'babel-loader',
-            query: { presets: ['es2015'] }
+            query: {
+              'presets': [
+                ['es2015', { 'modules': false }],
+                'react',
+                'airbnb',
+                'stage-0'
+              ],
+              'plugins': [
+                'transform-class-properties',
+                'transform-decorators-legacy',
+                'transform-object-rest-spread',
+                'react-hot-loader/babel'
+              ],
+            }
           },
           {
             test: /^.((?!cssmodule).)*\.css$/,
