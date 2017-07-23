@@ -23,35 +23,18 @@ class Home extends React.Component {
       .then(this.isOk)
   }
   isOk () {
-    const { photoList } = this.props
     this.setState({
-      success: true,
-      list: this.waterfallData(photoList)
+      success: true
     })
-  }
-  waterfallData (data, num = 3) {
-    const newData = []
-    let i = 0
-    data.forEach(e => {
-      if (!newData[i]) {
-        newData[i] = []
-      }
-      newData[i].push(e)
-      i === num - 1 ? i = 0 : i++
-    })
-    return newData
   }
   render () {
-    const { success, list } = this.state
+    const { success } = this.state
+    const { photoList } = this.props
     return success ? (
       <div className="container">
-        <section className="photo-list">
-          {
-            list.map((l, index) =>
-              <PhotoList key={ index } list={ l }/>
-            )
-          }
-        </section>
+        {
+          photoList && <PhotoList list={ photoList } />
+        }
       </div>
     ) :
     <div className="container">loading....</div>

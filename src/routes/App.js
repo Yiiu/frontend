@@ -19,6 +19,7 @@ import { Header } from 'components'
 import Home from './routes/Home'
 import Account from './routes/Account'
 import Upload from './routes/Upload'
+import User from './routes/User'
 
 import styles from 'styles/main.less'
 
@@ -46,6 +47,7 @@ class AppComponent extends React.Component {
           <Header isSignIn={ isSignIn } userInfo={ userInfo } />
           <Route exact path="/" component={ Home } />
           <PrivateRoute path="/upload" component={ Upload } isSignIn={ isSignIn } />
+          <PrivateRoute path="/:username(@\w+)" component={ User } isSignIn={ isSignIn } />
           <GuestRoute path="/account" component={ Account } isSignIn={ isSignIn } />
         </section>
       </Router>

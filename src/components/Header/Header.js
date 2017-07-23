@@ -15,7 +15,9 @@ export default ({ isSignIn, userInfo }) => {
         <section>
           {
             isSignIn ?
-            <span>{ userInfo.username }</span> :
+            <Link to={ `/@${userInfo.username}` }>
+              <span>{ userInfo.username }</span>
+            </Link> :
             <Link to="/account/SignIn">
               登录
             </Link>
