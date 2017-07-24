@@ -49,7 +49,7 @@ class Upload extends React.Component {
         }
       </div>
     ) : (
-      <div>loading</div>
+      <div className="container">loading</div>
     )
   }
 }

@@ -11,10 +11,33 @@
     }
     :local(.photo) {
       margin-bottom: @margin * 2;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: .3s all;
       img {
         display: block;
         width: 100%;
       }
+      // &:hover {
+      //   &:after {
+      //     opacity: 1;
+      //   }
+      //   img {
+      //     filter: blur(2px);
+      //   }
+      // }
+      // &:after {
+      //   opacity: 0;
+      //   content: '';
+      //   position: absolute;
+      //   left: 0;
+      //   top: 0;
+      //   width: 100%;
+      //   height: 100%;
+      //   background-color: rgba(0, 0, 0, .2);
+      //   transition: .3s all;
+      // }
     }
   }
 }
