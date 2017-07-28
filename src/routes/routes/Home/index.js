@@ -6,7 +6,7 @@ import {
   loadPhotoListRemote
 } from 'actions/photos'
 
-import PhotoList from 'components/Photo/Photo'
+import PhotoList from 'components/Photo/PhotoList'
 
 class Home extends React.Component {
   constructor (props) {

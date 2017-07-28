@@ -1,67 +1,29 @@
 import React from 'react'
-import styles from './style.less'
+import { Heart } from 'react-feather'
+import { Link } from 'react-router-dom'
 
-export default class PhotoList extends React.Component {
-  static defaultProps = {
-    list: []
-  }
-  constructor (props) {
-    super(props)
-    this.state = {
-      list: null
-    }
-  }
-  componentDidMount () {
-    const { list } = this.props
-    this.setState({
-      list: this.waterfallData(list)
-    })
-  }
-  componentWillReceiveProps (newProps) {
-    this.setState({
-      list: this.waterfallData(newProps.list)
-    })
-  }
-  waterfallData (data, num = 3) {
-    const newData = []
-    let i = 0
-    data.forEach(e => {
-      if (!newData[i]) {
-        newData[i] = []
-      }
-      newData[i].push(e)
-      i === num - 1 ? i = 0 : i++
-    })
-    return newData
-  }
-  render () {
-    const { list } = this.state
-    return list && (
-      <section className="photo-list">
-        {
-          list.map((l, index) =>
-            <section key={ index } className={ styles.list }>
-              {
-                l.map(e =>
-                  <Photo key={ e._id } data={ e }/>
-                )
-              }
-            </section>
-          )
-        }
-      </section>
-    )
-  }
-}
-class Photo extends React.Component {
+export default class Photo extends React.Component {
   static defaultProps = {
     data: null
   }
   render () {
-    const { data } = this.props
+    const { data, styles } = this.props
     return (
       <section className={ styles.photo }>
-        <img src={ `${data.links}?imageMogr2/auto-orient/thumbnail/600x600>/blur/1x0/quality/100|imageslim` }/>
+        <Link to={ `/photo/${ data._id }` }>
+          <img
+            src={ `${data.links}?imageMogr2/auto-orient/thumbnail/600x600>/blur/1x0/quality/100|imageslim` }
+          />
+        </Link>
+        <div className={ styles.photoInfo }>
+          <div className={ styles.photoUser }>
+            <img src={ data.user.avatar } alt=""/>
+            <span className={ styles.userName }>{ data.user.username }</span>
+          </div>
+          <div className={ styles.action }>
+            <Heart color="#fff" size={ 18 }/>
+          </div>
+        </div>
       </section>
     )
   }

@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import classnames from 'classnames'
 
-import PhotoList from 'components/Photo/Photo'
+import PhotoList from 'components/Photo/PhotoList'
 import styles from './style.less'
 import { loadUserNameInfoRemote, loadUserPhotoListRemote } from 'actions/users'
 import Avatar from 'components/Avatar/index.js'

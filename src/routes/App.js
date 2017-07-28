@@ -35,6 +35,7 @@ class AppComponent extends React.Component {
     const { setUserMyInfoRemote } = this.props
     setUserMyInfoRemote()
       .then(() => this.setState({ ok: true }))
+      .catch(() => this.setState({ ok: true }))
   }
 
   render() {

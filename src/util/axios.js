@@ -12,6 +12,7 @@ instance.interceptors.response.use(
   response => {
     if (response.status === 401) {
       history.push('/account/SignIn')
+      return Promise.reject(response.data)
     } else if (response.status >= 400) {
       return Promise.reject(response.data)
     } else {
