@@ -1,5 +1,5 @@
 @margin: 12px;
-.photo-list {
+:global(.photo-list) {
   :local(.list) {
     width: 33.33%;
     margin: 0 @margin;
@@ -56,5 +56,28 @@
         }
       }
     }
+  }
+  &:local(.loading) {
+    :local(.box) {
+      width: 33.33%;
+      margin: 0 @margin;
+      height: 200px;
+      background-color: #fff;
+      animation: loadingPhoto 5s;
+      &:last-child {
+        margin-right: 0;
+      }
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+}
+@keyframes loadingPhoto
+{
+  from {
+    background: #fff;
+  } to {
+    background: #ccc;
   }
 }

@@ -3,7 +3,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import {
-  loadPhotoListRemote
+  loadPhotoListRemote,
+  setPhotoList
 } from 'actions/photos'
 
 import PhotoList from 'components/Photo/PhotoList'
@@ -12,7 +13,7 @@ class Home extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      success: false,
+      loading: true,
       list: []
     }
     this.isOk = this.isOk.bind(this)
@@ -22,22 +23,23 @@ class Home extends React.Component {
     loadPhotoListRemote()
       .then(this.isOk)
   }
+  componentWillUnmount () {
+    const { setPhotoList } = this.props
+    setPhotoList([])
+  }
   isOk () {
     this.setState({
-      success: true
+      loading: false
     })
   }
   render () {
-    const { success } = this.state
+    const { loading } = this.state
     const { photoList } = this.props
-    return success ? (
+    return (
       <div className="container">
-        {
-          photoList && <PhotoList list={ photoList } />
-        }
+        <PhotoList loading={ true } list={ photoList } />
       </div>
-    ) :
-    <div className="container">loading....</div>
+    )
   }
 }
 
@@ -46,6 +48,7 @@ export default connect(
     photoList: state.Photos.photoList
   }),
   dispatch => bindActionCreators({
-    loadPhotoListRemote
+    loadPhotoListRemote,
+    setPhotoList
   }, dispatch)
 )(Home)

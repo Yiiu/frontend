@@ -5,7 +5,11 @@ import classnames from 'classnames'
 
 import PhotoList from 'components/Photo/PhotoList'
 import styles from './style.less'
-import { loadUserNameInfoRemote, loadUserPhotoListRemote } from 'actions/users'
+import {
+  loadUserNameInfoRemote,
+  loadUserPhotoListRemote
+} from 'actions/users'
+import { setPhotoList } from 'actions/photos'
 import Avatar from 'components/Avatar/index.js'
 
 class Upload extends React.Component {
@@ -13,7 +17,7 @@ class Upload extends React.Component {
     super(props)
     this.state = {
       username: this.props.match.params.username.match(/^@(\w+)/)[1],
-      success: false,
+      loading: true,
       info: null
     }
     this.isOk = this.isOk.bind(this)
@@ -24,18 +28,22 @@ class Upload extends React.Component {
     loadUserNameInfoRemote(username)
       .then(this.isOk)
   }
+  componentWillUnmount () {
+    const { setPhotoList } = this.props
+    setPhotoList([])
+  }
   isOk (info) {
     const { loadUserPhotoListRemote } = this.props
     this.setState({
-      success: true,
+      loading: false,
       info
     })
     loadUserPhotoListRemote(info._id)
   }
   render () {
-    const { success, info } = this.state
+    const { loading, info } = this.state
     const { photoList } = this.props
-    return success ? (
+    return !loading ? (
       <div className={ classnames('container', styles.box) }>
         <section className={ styles.info }>
           <section className={ styles.avatar }>
@@ -45,7 +53,7 @@ class Upload extends React.Component {
           <p className={ styles.description }>{ info.description }</p>
         </section>
         {
-          photoList && <PhotoList list={ photoList } />
+          photoList && <PhotoList loading={ loading } list={ photoList } />
         }
       </div>
     ) : (
@@ -53,12 +61,14 @@ class Upload extends React.Component {
     )
   }
 }
+
 export default connect(
   state => ({
     photoList: state.Photos.photoList
   }),
   dispatch => bindActionCreators({
     loadUserNameInfoRemote,
-    loadUserPhotoListRemote
+    loadUserPhotoListRemote,
+    setPhotoList
   }, dispatch)
 )(Upload)

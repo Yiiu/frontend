@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './style.less'
+import classnames from 'classnames'
 
 import Photo from './Photo'
 
@@ -37,21 +38,29 @@ export default class PhotoList extends React.Component {
     return newData
   }
   render () {
+    const { loading } = this.props
     const { list } = this.state
-    return list && (
-      <section className="photo-list">
-        {
-          list.map((l, index) =>
-            <section key={ index } className={ styles.list }>
-              {
-                l.map(e =>
-                  <Photo styles={ styles } key={ e._id } data={ e }/>
-                )
-              }
-            </section>
-          )
-        }
-      </section>
-    )
+    return !loading ? (
+      list && (
+        <section className="photo-list">
+          {
+            list.map((l, index) =>
+              <section key={ index } className={ styles.list }>
+                {
+                  l.map(e =>
+                    <Photo styles={ styles } key={ e._id } data={ e }/>
+                  )
+                }
+              </section>
+            )
+          }
+        </section>
+      )
+    ) :
+    <section className={ classnames('photo-list', styles.loading) }>
+      <div className={ styles.box }></div>
+      <div className={ styles.box }></div>
+      <div className={ styles.box }></div>
+    </section>
   }
 }

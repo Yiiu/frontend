@@ -22,5 +22,8 @@ export function uploadPhotoRemote (file) {
 export function loadPhotoListRemote () {
   return dispatch =>
     axios.get('/api/photos')
-      .then(list => dispatch(setPhotoList(list)))
+      .then(list => {
+        dispatch(setPhotoList(list))
+        return list
+      })
 }
