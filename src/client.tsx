@@ -1,8 +1,8 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 import { Provider } from 'react-redux'
-import App from './containers/App'
+import App from './containers/App.tsx'
 import configureStore from './stores'
 import './styles/index.less'
 
@@ -19,7 +19,7 @@ ReactDOM.render(
 
 if (module.hot) {
   module.hot.accept('./containers/App', () => {
-    const NextApp = require('./containers/App').default // eslint-disable-line global-require
+    const NextApp = require<{default: typeof App}>('./containers/App.tsx').default // eslint-disable-line global-require
 
     ReactDOM.render(
       <AppContainer>

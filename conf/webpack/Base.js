@@ -119,6 +119,11 @@ class WebpackBaseConfig {
             loader: 'json-loader'
           },
           {
+            test: /\.(ts|tsx)$/,
+            include: [].concat(this.includedPackages, [this.srcPathAbsolute]),
+            loaders: [{ loader: 'awesome-typescript-loader' }]
+          },
+          {
             test: /\.(js|jsx)$/,
             include: [].concat(this.includedPackages, [this.srcPathAbsolute]),
             loaders: [{ loader: 'babel-loader' }]
@@ -199,7 +204,9 @@ class WebpackBaseConfig {
         },
         extensions: [
           '.js',
-          '.jsx'
+          '.jsx',
+          'ts',
+          'tsx'
         ],
         modules: [
           this.srcPathAbsolute,

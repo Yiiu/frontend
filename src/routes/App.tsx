@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import {
   Router,
   Route
@@ -17,9 +17,9 @@ import {
 } from 'components/Account'
 import { Header } from 'components'
 import Home from './routes/Home'
-import Account from './routes/Account'
-import Upload from './routes/Upload'
-import User from './routes/User'
+// import Account from './routes/Account'
+// import Upload from './routes/Upload'
+// import User from './routes/User'
 
 import styles from 'styles/main.less'
 
@@ -47,9 +47,9 @@ class AppComponent extends React.Component {
         <section className={ styles.main }>
           <Header isSignIn={ isSignIn } userInfo={ userInfo } />
           <Route exact path="/" component={ Home } />
-          <PrivateRoute path="/upload" component={ Upload } isSignIn={ isSignIn } />
+          {/* <PrivateRoute path="/upload" component={ Upload } isSignIn={ isSignIn } />
           <PrivateRoute path="/:username(@\w+)" component={ User } isSignIn={ isSignIn } />
-          <GuestRoute path="/account" component={ Account } isSignIn={ isSignIn } />
+          <GuestRoute path="/account" component={ Account } isSignIn={ isSignIn } /> */}
         </section>
       </Router>
     )

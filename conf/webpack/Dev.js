@@ -16,7 +16,7 @@ class WebpackDevConfig extends WebpackBaseConfig {
         'webpack-dev-server/client?http://0.0.0.0:8000/',
         'webpack/hot/only-dev-server',
         'react-hot-loader/patch',
-        './client.js'
+        './client.tsx'
       ],
       plugins: [
         new webpack.HotModuleReplacementPlugin(),

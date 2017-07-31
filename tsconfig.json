@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "sourceMap": false,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "moduleResolution": "node",
+    "allowUnusedLabels": false,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "module": "es6",
+    "target": "es6",
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "src/*",
+        "declarations/*"
+      ]
+    },
+    "experimentalDecorators": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "declarations/**/*.d.ts"
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "useCache": true,
+    "useBabel": true
+  }
+}
