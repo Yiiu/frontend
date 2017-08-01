@@ -1,33 +1,60 @@
-'use strict';
+const webpack = require('webpack')
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+var TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
 
-/* eslint no-console: "off" */
-const webpackConfigs = require('./conf/webpack');
-const defaultConfig = 'dev';
+module.exports = {
+    entry: [
+        'react-hot-loader/patch',
+        './src/index.tsx',
+    ],
+    output: {
+        path: path.join(__dirname, 'dist'),
+        filename: 'bundle.js',
+    },
 
-module.exports = (configName) => {
+    // Enable sourcemaps for debugging webpack's output.
+    devtool: 'source-map',
 
-  // If there was no configuration give, assume default
-  const requestedConfig = configName || defaultConfig;
+    resolve: {
+        // Add '.ts' and '.tsx' as resolvable extensions.
+        extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js']
+    },
 
-  // Return a new instance of the webpack config
-  // or the default one if it cannot be found.
-  let LoadedConfig = defaultConfig;
+    plugins: [
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
+        new TsConfigPathsPlugin(/* { tsconfig, compiler } */),
+        new HtmlWebpackPlugin({
+            title: 'react-hot-ts',
+            chunksSortMode: 'dependency',
+            template: path.resolve(__dirname, './src/index.ejs')
+        }),
+    ],
 
-  if (webpackConfigs[requestedConfig] !== undefined) {
-    LoadedConfig = webpackConfigs[requestedConfig];
-  } else {
-    console.warn(`
-      Provided environment "${configName}" was not found.
-      Please use one of the following ones:
-      ${Object.keys(webpackConfigs).join(' ')}
-    `);
-    LoadedConfig = webpackConfigs[defaultConfig];
-  }
+    module: {
+        loaders: [
+            // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
+            {
+                test: /\.tsx?$/,
+                loaders: [
+                    'react-hot-loader/webpack',
+                    'awesome-typescript-loader'
+                ],
+                exclude: path.resolve(__dirname, 'node_modules'),
+                include: path.resolve(__dirname, 'src'),
+            },
+            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+            {
+                enforce: 'pre',
+                test: /\.js$/,
+                loader: 'source-map-loader'
+            },
+        ]
+    },
 
-  const loadedInstance = new LoadedConfig();
+    devServer: {
+        hot: true
+    }
 
-  // Set the global environment
-  process.env.NODE_ENV = loadedInstance.env;
-
-  return loadedInstance.config;
-};
+}
