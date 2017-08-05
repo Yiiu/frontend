@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux'
-import Photos from './photos'
-import Users from './users'
+import user from './user'
 
 export default combineReducers({
-  Photos,
-  Users
+  // Photos,
+  user
 })

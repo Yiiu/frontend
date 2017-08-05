@@ -1,27 +1,15 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { AppContainer } from 'react-hot-loader'
-import App from './App'
-import configureStore from './stores/index'
-
+import App from './containers/App'
+import configureStore from './stores'
+import registerServiceWorker from './registerServiceWorker'
+import { Provider } from 'react-redux';
+import './styles/index.less'
 const store = configureStore()
-
-const rootEl = document.getElementById('root')
 ReactDOM.render(
-  <AppContainer>
+  <Provider store={ store }>
     <App />
-  </AppContainer>,
-  rootEl
+  </Provider>,
+  document.getElementById('root') as HTMLElement
 )
-
-if (module.hot) {
-  module.hot.accept('./App', () => {
-    const NextApp = require<{ default: typeof App }>('./App').default
-    ReactDOM.render(
-      <AppContainer>
-        <NextApp />
-      </AppContainer>,
-      rootEl
-    )
-  })
-}
+registerServiceWorker()

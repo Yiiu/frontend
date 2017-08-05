@@ -1,9 +1,0 @@
-version: '2'
-
-services:
-
-  react-hot-ts:
-    container_name: react-hot-ts
-    build: .
-    ports:
-      - "8080:8080"
