@@ -40,6 +40,11 @@ class AppComponent extends React.Component<IProps & Dispatch<any>, IState> {
           loading: false
         })
       })
+      .catch(() => {
+        this.setState({
+          loading: false
+        })
+      })
   }
 
   render () {
@@ -61,7 +66,7 @@ class AppComponent extends React.Component<IProps & Dispatch<any>, IState> {
 }
 
 export default connect(
-  (state) => ({
+  state => ({
     ...state.reducers.user
   }),
   (dispatch: Dispatch<any>) =>
