@@ -7,4 +7,6 @@ declare module 'components'
 
 declare module 'actions'
 
+declare module 'util'
+
 declare module 'react-feather'

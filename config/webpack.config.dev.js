@@ -92,6 +92,7 @@ module.exports = {
       'components': path.resolve(__dirname, '../src/components'),
       'actions': path.resolve(__dirname, '../src/actions'),
       'models': path.resolve(__dirname, '../src/models'),
+      'util': path.resolve(__dirname, '../src/util'),
       'react-native': 'react-native-web',
     },
     plugins: [
