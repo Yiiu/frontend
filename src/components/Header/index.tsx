@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Aperture, Compass, Bell, User } from 'react-feather'
+import { Aperture, User, Compass, Bell } from 'feather'
 import { Link } from 'react-router-dom'
 // import Nav from './components/Nav'
 import styles from './style.less'

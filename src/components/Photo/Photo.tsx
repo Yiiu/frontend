@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Heart } from 'react-feather'
+import { Heart } from 'feather'
 import { Link } from 'react-router-dom'
 
 import { IPhotoInfo } from '../../models'
