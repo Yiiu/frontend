@@ -13,7 +13,12 @@ export default (props: IPhotoProps) => {
   const { data, styles } = props
   return (
     <section className={ styles.photo }>
-      <Link to={ `/photo/${ data._id }` }>
+      <Link
+        to={{
+          pathname: `/photo/${ data._id }`,
+          state: { modal: true }
+        }}
+      >
         <img
           src={ `${data.links}?imageMogr2/auto-orient/thumbnail/600x600>/blur/1x0/quality/100|imageslim` }
         />

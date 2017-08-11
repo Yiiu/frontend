@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as Redux from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { connect, Dispatch } from 'react-redux'
+import { RouteComponentProps } from 'react-router'
 
 import {
   PhotoList
@@ -15,11 +16,11 @@ export interface IHomeProps {
   loadPhotoListRemote: Redux.ActionCreator<any>
 }
 
-class Home extends React.Component<IHomeProps & Dispatch<any>, any> {
+class Home extends React.Component<IHomeProps & Dispatch<any> & RouteComponentProps<any>, any> {
   state = {
     photoList: []
   }
-  constructor (props: IHomeProps & Dispatch<any>) {
+  constructor (props: IHomeProps & Dispatch<any> & RouteComponentProps<any>) {
     super(props)
   }
 
