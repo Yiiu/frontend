@@ -4,31 +4,62 @@ import { bindActionCreators } from 'redux'
 import { connect, Dispatch } from 'react-redux'
 import { RouteComponentProps } from 'react-router'
 
+import { IPhotoInfo } from 'models'
+import styles from './style.less'
+
 import {
-  loadPhotoListRemote
+  loadPhotoDetailRemote
 } from 'actions'
 
 export interface IPhotoProps {
-  loadPhotoListRemote: Redux.ActionCreator<any>
+  loadPhotoDetailRemote: Redux.ActionCreator<any>
+  photoDetail?: IPhotoInfo | null
 }
 
-class Photo extends React.Component<IPhotoProps & Dispatch<any> & RouteComponentProps<any>, any> {
+export interface IPhotoState {
+  loading: boolean
+}
+
+class Photo extends React.Component<IPhotoProps & Dispatch<any> & RouteComponentProps<any>, IPhotoProps> {
   constructor (props: IPhotoProps & Dispatch<any> & RouteComponentProps<any>) {
     super(props)
   }
 
+  componentDidMount () {
+    const { loadPhotoDetailRemote, match: { params } } = this.props;
+    loadPhotoDetailRemote(params.photoId)
+  }
+
   render () {
+    const { photoDetail } = this.props
+    if (!photoDetail) {
+      return <div />
+    }
     return (
       <div className="container">
-        asdf
+        <img src={ photoDetail.links } alt=""/>
       </div>
     )
   }
 }
 
+export const Modal = (Component: React.ComponentClass) => {
+  return class extends React.Component {
+    render() {
+      return (
+        <section className={ styles['photo-modal'] }>
+          <Component {...this.props} />
+        </section>
+      )
+    }
+  }
+}
+
 export default connect(
-  () => ({}),
+  (state) => ({
+    ...state.reducers.photo
+  }),
   (dispatch: Dispatch<any>) => bindActionCreators({
-    loadPhotoListRemote
+    loadPhotoDetailRemote
   }, dispatch)
 )(Photo as React.ComponentClass<any>)

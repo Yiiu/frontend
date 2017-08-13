@@ -12,3 +12,7 @@ export interface IPhotoInfo {
   __v: number,
   is_like: boolean
 }
+
+export interface IPhotoState {
+  photoDetail: IPhotoInfo | null
+}

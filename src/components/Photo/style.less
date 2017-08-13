@@ -9,7 +9,7 @@
     &:first-child {
       margin-left: 0;
     }
-    :local(.photo) {
+    .photo {
       margin-bottom: @margin * 2;
       cursor: pointer;
       position: relative;
@@ -19,7 +19,7 @@
         display: block;
         width: 100%;
       }
-      :local(.photoInfo) {
+      .photoInfo {
         @cubic : all .3s cubic-bezier(0.65, 0.05, 0.36, 1);
         transform: translate3d(0px, 2px, 0px);
         opacity: 0;
@@ -34,31 +34,31 @@
         background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6));
         line-height: 42px;
         transition: @cubic;
-        :local(.userName) {
+        .userName {
           color: fade(#fff, 90%);
         }
-        :local(.photoUser), :local(.action) {
+        .photoUser, .action {
           transition: @cubic;
           transform: translate3d(0px, 12px, 0px);
         }
-        :local(.action) {
+        .action {
           display: flex;
           align-items: center;
         }
       }
       &:hover {
-        :local(.photoInfo) {
+        .photoInfo {
           opacity: 1;
           transform: translate3d(0px, 0px, 0px);
-          :local(.photoUser), :local(.action) {
+          .photoUser, .action {
             transform: translate3d(0px, 0px, 0px);
           }
         }
       }
     }
   }
-  &:local(.loading) {
-    :local(.box) {
+  &.loading {
+    .box {
       width: 33.33%;
       margin: 0 @margin;
       height: 200px;

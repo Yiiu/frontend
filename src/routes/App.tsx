@@ -6,9 +6,10 @@ import { RouteComponentProps } from 'react-router'
 import { Switch } from 'react-router-dom'
 
 import { Header, PrivateRoute, GuestRoute } from 'components'
+import autobind from 'autobind-decorator'
 import Home from './Home'
 import SignIn from './SignIn'
-import Photo from './Photo'
+import Photo, { Modal } from './Photo'
 import { IUserInfo } from '../models'
 
 interface IProps {
@@ -21,6 +22,7 @@ interface IState {
   loading: boolean
 }
 
+@autobind
 class AppComponent extends React.Component<IProps & Dispatch<any> & RouteComponentProps<any>, IState> {
 
   state = {
@@ -34,11 +36,10 @@ class AppComponent extends React.Component<IProps & Dispatch<any> & RouteCompone
   }
 
   componentWillReceiveProps (newProps: IProps & Dispatch<any> & RouteComponentProps<any>) {
-    console.log(newProps)
     const { location } = this.props
     // 判断是否是
     if (
-      newProps.history.action === 'POP' &&
+      newProps.history.action !== 'POP' &&
       (!location.state || !location.state.modal)
     ) {
       this.previousLocation = this.props.location
@@ -59,7 +60,6 @@ class AppComponent extends React.Component<IProps & Dispatch<any> & RouteCompone
         })
       })
   }
-
   render () {
     const { isSignIn, userInfo, location } = this.props
     const { loading } = this.state
@@ -81,7 +81,7 @@ class AppComponent extends React.Component<IProps & Dispatch<any> & RouteCompone
         </Switch>
         {
           isModal &&
-          <PrivateRoute path="/photo/:photoId" component={ () => <div>123123123</div> } isSignIn={ isSignIn } />
+          <PrivateRoute path="/photo/:photoId" component={ Modal(Photo) } isSignIn={ isSignIn } />
         }
       </section>
     )

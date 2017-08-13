@@ -11,4 +11,4 @@ declare module 'util'
 
 declare module 'feather'
 
-declare module 'react-feather'
+declare module 'autobind-decorator'
