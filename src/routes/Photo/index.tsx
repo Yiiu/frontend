@@ -1,5 +1,6 @@
 import * as React from 'react'
 import * as Redux from 'react-redux'
+import classnames from 'classnames'
 import { bindActionCreators } from 'redux'
 import { connect, Dispatch } from 'react-redux'
 import { RouteComponentProps } from 'react-router'
@@ -36,7 +37,7 @@ class Photo extends React.Component<IPhotoProps & Dispatch<any> & RouteComponent
       return <div />
     }
     return (
-      <div className="container">
+      <div className={ classnames('container', styles.container) }>
         <img src={ photoDetail.links } alt=""/>
       </div>
     )

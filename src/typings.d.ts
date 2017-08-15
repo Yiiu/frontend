@@ -11,4 +11,6 @@ declare module 'util'
 
 declare module 'feather'
 
+declare module 'classnames'
+
 declare module 'autobind-decorator'

@@ -1,4 +1,4 @@
-:local(.root) {
+.root {
   height: 60px;
   width: 100%;
   margin-bottom: 48px;
@@ -6,23 +6,23 @@
   box-shadow: 0px 2px 0px rgba(205,205,205,0.1);
 }
 
-:local(.box) {
+.box {
   composes: box from "../../styles/main.less";
   justify-content: space-between;
 }
 
-:local(.nav) {
+.nav {
   display: flex;
 }
-:local(.logo) {
+.logo {
   margin-right: 24px;
   img {
     width: 32px;
     height: 32px;
   }
 }
-:local(.nav) {
-  :local(.icon) {
+.nav {
+  .icon {
     margin-left: 16px;
   }
 }
