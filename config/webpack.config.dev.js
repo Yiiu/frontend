@@ -10,6 +10,7 @@ const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeM
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
+const DashboardPlugin = require('webpack-dashboard/plugin');
 const { TsConfigPathsPlugin } = require('awesome-typescript-loader')
 
 // Webpack uses `publicPath` to determine where the app is being served from.
@@ -189,7 +190,7 @@ module.exports = {
             options: {
               importLoaders: 1,
               modules: true,
-              localIdentName: '[path][name]__[local]--[hash:base64:5]'
+              localIdentName: '[hash:base64:8]'
             },
           },
           {
@@ -224,6 +225,7 @@ module.exports = {
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     // In development, this will be an empty string.
+    new DashboardPlugin(),
     new TsConfigPathsPlugin({
       tsconfig: path.resolve(__dirname, '../tsconfig.json')
     }),
