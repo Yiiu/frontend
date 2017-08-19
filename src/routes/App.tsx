@@ -7,9 +7,12 @@ import { Switch } from 'react-router-dom'
 
 import { Header, PrivateRoute, GuestRoute } from 'components'
 import autobind from 'autobind-decorator'
+
 import Home from './Home'
 import SignIn from './SignIn'
+import Upload from './Upload'
 import Photo, { Modal } from './Photo'
+
 import { IUserInfo } from '../models'
 
 interface IProps {
@@ -78,6 +81,7 @@ class AppComponent extends React.Component<IProps & Dispatch<any> & RouteCompone
           <PrivateRoute exact path="/" component={ Home } isSignIn={ isSignIn }/>
           <GuestRoute path="/account/SignIn" component={ SignIn } isSignIn={ isSignIn } />
           <PrivateRoute path="/photo/:photoId" component={ Photo } isSignIn={ isSignIn } />
+          <PrivateRoute path="/upload" component={ Upload } isSignIn={ isSignIn } />
         </Switch>
         {
           isModal &&

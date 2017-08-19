@@ -1,9 +1,10 @@
 import * as React from 'react'
 import * as Redux from 'react-redux'
-import classnames from 'classnames'
 import { bindActionCreators } from 'redux'
 import { connect, Dispatch } from 'react-redux'
 import { RouteComponentProps } from 'react-router'
+
+import { Window } from 'components/Layout'
 
 import { IPhotoInfo } from 'models'
 import styles from './style.less'
@@ -37,9 +38,9 @@ class Photo extends React.Component<IPhotoProps & Dispatch<any> & RouteComponent
       return <div />
     }
     return (
-      <div className={ classnames('container', styles.container) }>
+      <Window className={ styles.container }>
         <img src={ photoDetail.links } alt=""/>
-      </div>
+      </Window>
     )
   }
 }
