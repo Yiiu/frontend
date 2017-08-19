@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Aperture, User, Compass, Bell } from 'feather'
+import { Aperture, User, Compass, Bell, Upload } from 'feather'
 import { Link } from 'react-router-dom'
 // import Nav from './components/Nav'
 import styles from './style.less'
@@ -16,11 +16,16 @@ export default class Header extends React.Component<IHeaderProps, any> {
   userRender () {
     const { userInfo } = this.props;
     return (
-      <Link className={ styles.nav } to={ `/@${ userInfo.username }` } title={ userInfo.username }>
+      <span className={ styles.nav }>
+        <Link to="upload" title="sfasdf">
+          <Upload className={ styles.icon } />
+        </Link>
         <Compass className={ styles.icon }/>
         <Bell className={ styles.icon }/>
-        <User className={ styles.icon }/>
-      </Link>
+        <Link to={ `/@${ userInfo.username }` } title={ userInfo.username }>
+          <User className={ styles.icon }/>
+        </Link>
+      </span>
     )
   }
   guestRender () {
