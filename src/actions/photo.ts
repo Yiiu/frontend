@@ -4,6 +4,11 @@ import { IPhotoInfo } from 'models'
 import {
   SET_PHOTO_DETAIL
 } from '../constants'
+import {
+  starsRequest,
+  starsSuccess,
+  starsFailure
+} from './request'
 
 export function setPhotoDetail (detail: IPhotoInfo) {
   return {
@@ -15,17 +20,29 @@ export function setPhotoDetail (detail: IPhotoInfo) {
 }
 
 export function loadPhotoListRemote () {
-  return () =>
-    axios.get('/api/photos')
+  return (dispatch: any) => {
+    dispatch(starsRequest());
+    return axios.get('/api/photos')
       .then((list: any) => {
+        dispatch(starsSuccess())
         return list
       })
+      .catch(err => {
+        dispatch(starsFailure(err))
+      })
+  }
 }
 export function loadPhotoDetailRemote (photoId: string) {
-  return (dispatch: any) =>
-    axios.get(`/api/photos/${photoId}`)
+  return (dispatch: any) => {
+    dispatch(starsRequest());
+    return axios.get(`/api/photos/${photoId}`)
       .then((detail: any) => {
+        dispatch(starsSuccess())
         dispatch(setPhotoDetail(detail))
         return detail
       })
+      .catch(err => {
+        dispatch(starsFailure(err))
+      })
+  }
 }

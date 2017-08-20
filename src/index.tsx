@@ -4,7 +4,6 @@ import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom'
-
 import App from './routes/App'
 import configureStore from './stores'
 import registerServiceWorker from './registerServiceWorker'

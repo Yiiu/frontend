@@ -17,13 +17,13 @@
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.2",
-    "react-router-redux": "^4.0.8",
     "redux": "^3.7.2",
     "redux-router": "^2.1.2",
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.0",
+    "@types/react-router-redux": "^5.0.6",
     "app-root-path": "^2.0.1",
     "autoprefixer": "7.1.0",
     "awesome-typescript-loader": "^3.2.2",
@@ -47,6 +47,7 @@
     "promise": "7.1.1",
     "react-dev-utils": "^2.0.1",
     "react-error-overlay": "^1.0.6",
+    "react-router-redux": "^4.0.8",
     "source-map-loader": "^0.2.1",
     "style-loader": "0.17.0",
     "sw-precache-webpack-plugin": "0.9.1",

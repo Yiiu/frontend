@@ -5,6 +5,7 @@ import { connect, Dispatch } from 'react-redux'
 import { RouteComponentProps } from 'react-router'
 
 import { Window } from 'components/Layout'
+import { Title } from 'components'
 
 import { IPhotoInfo } from 'models'
 import styles from './style.less'
@@ -29,6 +30,7 @@ class Photo extends React.Component<IPhotoProps & Dispatch<any> & RouteComponent
 
   componentDidMount () {
     const { loadPhotoDetailRemote, match: { params } } = this.props;
+    console.log(1)
     loadPhotoDetailRemote(params.photoId)
   }
 
@@ -39,6 +41,7 @@ class Photo extends React.Component<IPhotoProps & Dispatch<any> & RouteComponent
     }
     return (
       <Window className={ styles.container }>
+        <Title title="photo" />
         <img src={ photoDetail.links } alt=""/>
       </Window>
     )
@@ -59,7 +62,7 @@ export const Modal = (Component: React.ComponentClass) => {
 
 export default connect(
   (state) => ({
-    ...state.reducers.photo
+    ...state.photo
   }),
   (dispatch: Dispatch<any>) => bindActionCreators({
     loadPhotoDetailRemote

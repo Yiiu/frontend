@@ -5,20 +5,27 @@ import { setUserMyInfoRemote } from 'actions'
 import { RouteComponentProps } from 'react-router'
 import { Switch } from 'react-router-dom'
 
-import { Header, PrivateRoute, GuestRoute } from 'components'
+import {
+  Header,
+  PrivateRoute,
+  GuestRoute,
+  Title,
+  LoadingBar
+} from 'components'
 import autobind from 'autobind-decorator'
 
 import Home from './Home'
 import SignIn from './SignIn'
 import Upload from './Upload'
 import Photo, { Modal } from './Photo'
-
 import { IUserInfo } from '../models'
+const ModalPhoto = Modal(Photo)
 
 interface IProps {
   setUserMyInfoRemote: any
   isSignIn: boolean,
   userInfo?: IUserInfo
+  isFetching: boolean
 }
 
 interface IState {
@@ -41,6 +48,9 @@ class AppComponent extends React.Component<IProps & Dispatch<any> & RouteCompone
   componentWillReceiveProps (newProps: IProps & Dispatch<any> & RouteComponentProps<any>) {
     const { location } = this.props
     // 判断是否是
+    if (location.pathname === newProps.location.pathname) {
+      return
+    }
     if (
       newProps.history.action !== 'POP' &&
       (!location.state || !location.state.modal)
@@ -57,14 +67,9 @@ class AppComponent extends React.Component<IProps & Dispatch<any> & RouteCompone
           loading: false
         })
       })
-      .catch(() => {
-        this.setState({
-          loading: false
-        })
-      })
   }
   render () {
-    const { isSignIn, userInfo, location } = this.props
+    const { isSignIn, userInfo, location, isFetching } = this.props
     const { loading } = this.state
     if (loading) {
       return null
@@ -76,6 +81,8 @@ class AppComponent extends React.Component<IProps & Dispatch<any> & RouteCompone
     )
     return (
       <section>
+        <Title title="Soap" />
+        <LoadingBar isFetching={ isFetching } />
         <Header isSignIn={ isSignIn } userInfo={ userInfo }/>
         <Switch location={ isModal ? this.previousLocation : location }>
           <PrivateRoute exact path="/" component={ Home } isSignIn={ isSignIn }/>
@@ -85,7 +92,7 @@ class AppComponent extends React.Component<IProps & Dispatch<any> & RouteCompone
         </Switch>
         {
           isModal &&
-          <PrivateRoute path="/photo/:photoId" component={ Modal(Photo) } isSignIn={ isSignIn } />
+          <PrivateRoute path="/photo/:photoId" component={ ModalPhoto } isSignIn={ isSignIn } />
         }
       </section>
     )
@@ -94,7 +101,8 @@ class AppComponent extends React.Component<IProps & Dispatch<any> & RouteCompone
 
 export default connect(
   state => ({
-    ...state.reducers.user
+    ...state.user,
+    ...state.request
   }),
   (dispatch: Dispatch<any>) =>
     bindActionCreators({

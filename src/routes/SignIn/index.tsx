@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect, Dispatch } from 'react-redux'
 import { RouteComponentProps } from 'react-router'
 
+import { Title } from 'components'
 import styles from './style.less'
 import {
   SignInRemote
@@ -44,6 +45,7 @@ class SignIn extends React.Component<ISignInProps & Dispatch<any> & RouteCompone
   render () {
     return (
       <div className={ styles.box }>
+        <Title title="登录" />
         <h2 className={ styles.h2 }>登录</h2>
         <input
           value={ this.state.userOrEmail }
