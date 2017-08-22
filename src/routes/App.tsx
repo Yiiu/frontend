@@ -17,9 +17,9 @@ import autobind from 'autobind-decorator'
 import Home from './Home'
 import SignIn from './SignIn'
 import Upload from './Upload'
-import Photo, { Modal } from './Photo'
+import Photo from './Photo'
+import ModalPhoto from './Photo/Modal'
 import { IUserInfo } from '../models'
-const ModalPhoto = Modal(Photo)
 
 interface IProps {
   setUserMyInfoRemote: any
