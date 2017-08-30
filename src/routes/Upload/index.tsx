@@ -10,6 +10,11 @@ import styles from './style.less'
 class Upload extends React.Component<RouteComponentProps<any>, {}> {
   public file?: HTMLInputElement | null
 
+  public state = {
+    photoFile: null,
+    photoViewUrl: null
+  }
+
   constructor (props: RouteComponentProps<any>) {
     super(props)
   }
@@ -22,7 +27,21 @@ class Upload extends React.Component<RouteComponentProps<any>, {}> {
     el.click();
   }
 
+  handleFileChange = (e: any) => {
+    this.setState({
+      photoFile: e.target.files[0]
+    });
+    let r = new FileReader()
+    r.readAsDataURL(e.target.files[0]);
+    r.onload = (e: any) => {
+      this.setState({
+        photoViewUrl: e.target.result
+      })
+    }
+  }
+
   render () {
+    const { photoViewUrl } = this.state
     return (
       <Window
         className={ styles.box }
@@ -42,7 +61,12 @@ class Upload extends React.Component<RouteComponentProps<any>, {}> {
             ref={ file => this.file = file }
             className={ styles['file-input'] }
             type="file"
+            onChange={ this.handleFileChange }
           />
+          {
+            photoViewUrl &&
+            <img src={ photoViewUrl } />
+          }
         </article>
       </Window>
     )
