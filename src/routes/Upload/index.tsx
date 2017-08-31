@@ -5,6 +5,7 @@ import { RouteComponentProps } from 'react-router'
 import { Window } from 'components/Layout'
 import { Title, Button } from 'components'
 
+import ImageModal from './ImageModal'
 import styles from './style.less'
 
 class Upload extends React.Component<RouteComponentProps<any>, {}> {
@@ -63,10 +64,7 @@ class Upload extends React.Component<RouteComponentProps<any>, {}> {
             type="file"
             onChange={ this.handleFileChange }
           />
-          {
-            photoViewUrl &&
-            <img src={ photoViewUrl } />
-          }
+          <ImageModal url={ photoViewUrl } />
         </article>
       </Window>
     )

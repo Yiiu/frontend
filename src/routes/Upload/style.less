@@ -16,3 +16,27 @@
     }
   }
 }
+.image-modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    min-height: 100%;
+    width: 100%;
+    .mask {
+      position: absolute;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      background-color: fade(#000, 50%);
+    }
+  }
+}

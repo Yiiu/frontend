@@ -13,4 +13,8 @@ declare module 'feather'
 
 declare module 'classnames'
 
+declare module 'rc-animate'
+
+declare module 'velocity-animate'
+
 declare module 'autobind-decorator'
