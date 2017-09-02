@@ -1,5 +1,8 @@
 import * as React from 'react'
 import Animate from 'rc-animate';
+
+import { form } from 'util'
+import { WrappedForm } from 'models'
 // import velocity from 'velocity-animate';
 
 import { X } from 'feather'
@@ -10,9 +13,16 @@ export interface IImageModal {
   uploadPhoto: any
   onClose: any
 }
+export interface IImageContent {
+  onClose?: any
+  uploadPhoto?: any
+  url?: string | null
+  form: WrappedForm
+}
 
+@form
 class ImageContent extends React.Component <any, any> {
-  constructor (props: any) {
+  constructor (props: IImageContent) {
     super(props)
   }
 
@@ -39,7 +49,9 @@ class ImageContent extends React.Component <any, any> {
   }
 
   render () {
-    const { url, onClose } = this.props
+    const { url, onClose, form } = this.props
+    console.log(form)
+    const titleDecorator = form.getFieldDecorator('title')
     return (
       <section  className={ styles['image-modal'] }>
         <article
@@ -56,7 +68,11 @@ class ImageContent extends React.Component <any, any> {
                 <span className={ styles.title }>
                   请输入图片标题
                 </span>
-                <input type="text" />
+                {
+                  titleDecorator(
+                    <input />
+                  )
+                }
               </label>
             </section>
             <section className={ styles.btn }>
