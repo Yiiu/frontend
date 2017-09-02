@@ -5,10 +5,15 @@ import { RouteComponentProps } from 'react-router'
 import { Window } from 'components/Layout'
 import { Title, Button } from 'components'
 
+import { uploadPhotoRemote } from 'actions'
 import ImageModal from './ImageModal'
 import styles from './style.less'
 
-class Upload extends React.Component<RouteComponentProps<any>, {}> {
+export interface IUploadProps {
+  uploadPhotoRemote: any
+}
+
+class Upload extends React.Component<RouteComponentProps<any> & IUploadProps, {}> {
   public file?: HTMLInputElement | null
 
   public state = {
@@ -16,7 +21,7 @@ class Upload extends React.Component<RouteComponentProps<any>, {}> {
     photoViewUrl: null
   }
 
-  constructor (props: RouteComponentProps<any>) {
+  constructor (props: RouteComponentProps<any> & IUploadProps) {
     super(props)
   }
 
@@ -26,6 +31,13 @@ class Upload extends React.Component<RouteComponentProps<any>, {}> {
       return;
     }
     el.click();
+  }
+
+  onClose = () => {
+    this.setState({
+      photoFile: null,
+      photoViewUrl: null
+    })
   }
 
   handleFileChange = (e: any) => {
@@ -39,6 +51,15 @@ class Upload extends React.Component<RouteComponentProps<any>, {}> {
         photoViewUrl: e.target.result
       })
     }
+    if (e.target.value) {
+      e.target.value = ''
+    }
+  }
+
+  uploadPhoto = (data: any) => {
+    const { uploadPhotoRemote } = this.props
+    const { photoFile } = this.state
+    uploadPhotoRemote(photoFile, data)
   }
 
   render () {
@@ -64,7 +85,11 @@ class Upload extends React.Component<RouteComponentProps<any>, {}> {
             type="file"
             onChange={ this.handleFileChange }
           />
-          <ImageModal url={ photoViewUrl } />
+          <ImageModal
+            url={ photoViewUrl }
+            uploadPhoto={ this.uploadPhoto }
+            onClose={ this.onClose }
+          />
         </article>
       </Window>
     )
@@ -74,6 +99,6 @@ class Upload extends React.Component<RouteComponentProps<any>, {}> {
 export default connect(
   () => ({}),
   (dispatch: Dispatch<any>) => bindActionCreators({
-    
+    uploadPhotoRemote
   }, dispatch)
 )(Upload as React.ComponentClass<any>)

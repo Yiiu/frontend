@@ -4,6 +4,7 @@ export * from './User'
 export * from './Bell'
 export * from './Compass'
 export * from './Upload'
+export * from './X'
 
 export interface IIconProps {
   borderSize?: string,

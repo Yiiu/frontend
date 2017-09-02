@@ -10,6 +10,19 @@ import {
   starsFailure
 } from './request'
 
+export function uploadPhotoRemote (file: any, data: any) {
+  const photo = new FormData();
+  photo.append('photo', file)
+  if (data) {
+    photo.append('info', JSON.stringify(data))
+  }
+  return () => 
+    axios.post('/api/photos', photo)
+      .then(() => {
+        console.log(1)
+      })
+}
+
 export function setPhotoDetail (detail: IPhotoInfo) {
   return {
     type: SET_PHOTO_DETAIL,
