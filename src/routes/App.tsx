@@ -18,6 +18,7 @@ import Home from './Home'
 import SignIn from './SignIn'
 import Upload from './Upload'
 import Photo from './Photo'
+import UserHome from './User/Home'
 import ModalPhoto from './Photo/Modal'
 import { IUserInfo } from '../models'
 
@@ -89,6 +90,7 @@ class AppComponent extends React.Component<IProps & Dispatch<any> & RouteCompone
           <GuestRoute path="/account/SignIn" component={ SignIn } isSignIn={ isSignIn } />
           <PrivateRoute path="/photo/:photoId" component={ Photo } isSignIn={ isSignIn } />
           <PrivateRoute path="/upload" component={ Upload } isSignIn={ isSignIn } />
+          <PrivateRoute path="/:username" component={ UserHome } isSignIn={ isSignIn } />
         </Switch>
         {
           isModal &&

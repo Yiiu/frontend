@@ -130,7 +130,7 @@ class Store {
       })
     }
     return {
-      [option.valuePropName]: value
+      [option.valuePropName]: value ? value : ''
     }
   }
 }

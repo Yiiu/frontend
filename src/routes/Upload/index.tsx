@@ -18,7 +18,8 @@ class Upload extends React.Component<RouteComponentProps<any> & IUploadProps, {}
 
   public state = {
     photoFile: null,
-    photoViewUrl: null
+    photoViewUrl: null,
+    message: null
   }
 
   constructor (props: RouteComponentProps<any> & IUploadProps) {
@@ -60,10 +61,16 @@ class Upload extends React.Component<RouteComponentProps<any> & IUploadProps, {}
     const { uploadPhotoRemote } = this.props
     const { photoFile } = this.state
     uploadPhotoRemote(photoFile, data)
+      .then(() => {
+        this.onClose()
+        this.setState({
+          message: '皂片成功上传~'
+        })
+      })
   }
 
   render () {
-    const { photoViewUrl } = this.state
+    const { photoViewUrl, message } = this.state
     return (
       <Window
         className={ styles.box }
@@ -73,6 +80,10 @@ class Upload extends React.Component<RouteComponentProps<any> & IUploadProps, {}
           className={ styles.upload }
         >
           <h2 className={ styles.title }>上传你的皂片</h2>
+          {
+            message &&
+            <h3 className={ styles.message }>{ message }</h3>
+          }
           <Button
             size="large"
             onClick={ this.onClick }

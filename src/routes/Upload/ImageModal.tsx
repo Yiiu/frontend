@@ -22,6 +22,9 @@ export interface IImageContent {
 
 @form
 class ImageContent extends React.Component <any, any> {
+  public state = {
+    loading: false
+  }
   constructor (props: IImageContent) {
     super(props)
   }
@@ -43,16 +46,17 @@ class ImageContent extends React.Component <any, any> {
   }
 
   uploadBtn = () => {
-    this.props.uploadPhoto({
-      title: 'asdfasdf'
+    const { form } = this.props
+    this.setState({
+      loading: true
     })
+    this.props.uploadPhoto(form.getFieldsValue())
   }
 
   render () {
     const { url, onClose, form } = this.props
-    const titleDecorator = form.getFieldDecorator('title', {
-      defaultValue: 'asdsdf'
-    })
+    const { loading } = this.state
+    const titleDecorator = form.getFieldDecorator('title')
     return (
       <section  className={ styles['image-modal'] }>
         <article
@@ -77,7 +81,12 @@ class ImageContent extends React.Component <any, any> {
               </label>
             </section>
             <section className={ styles.btn }>
-              <Button onClick={ this.uploadBtn }>上传图片</Button>
+              <Button
+                onClick={ this.uploadBtn }
+                loading={ loading }
+              >
+                上传图片
+              </Button>
             </section>
           </section>
           <section

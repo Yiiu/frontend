@@ -12,15 +12,17 @@ import {
   loadPhotoListRemote
 } from 'actions'
 
-export interface IHomeProps {
+interface IHome {
   loadPhotoListRemote: Redux.ActionCreator<any>
 }
 
-class Home extends React.Component<IHomeProps & Dispatch<any> & RouteComponentProps<any>, any> {
+type IHomeProps = IHome & Dispatch<any> & RouteComponentProps<any>
+
+class Home extends React.Component<IHomeProps, any> {
   state = {
     photoList: []
   }
-  constructor (props: IHomeProps & Dispatch<any> & RouteComponentProps<any>) {
+  constructor (props: IHomeProps) {
     super(props)
   }
 
