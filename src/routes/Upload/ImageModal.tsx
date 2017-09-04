@@ -50,8 +50,9 @@ class ImageContent extends React.Component <any, any> {
 
   render () {
     const { url, onClose, form } = this.props
-    console.log(form)
-    const titleDecorator = form.getFieldDecorator('title')
+    const titleDecorator = form.getFieldDecorator('title', {
+      defaultValue: 'asdsdf'
+    })
     return (
       <section  className={ styles['image-modal'] }>
         <article
@@ -70,7 +71,7 @@ class ImageContent extends React.Component <any, any> {
                 </span>
                 {
                   titleDecorator(
-                    <input />
+                    <input placeholder="请输入图片标题"/>
                   )
                 }
               </label>
