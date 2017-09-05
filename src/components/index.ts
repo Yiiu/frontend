@@ -4,6 +4,7 @@ import Title from './Title'
 import RenderInBody from './RenderInBody'
 import LoadingBar from './LoadingBar/index'
 import Button from './Button/index'
+import Avatar from './Avatar/index'
 
 export * from './Account'
 export * from './Layout'
@@ -13,5 +14,6 @@ export {
   Title,
   RenderInBody,
   LoadingBar,
-  Button
+  Button,
+  Avatar
 }

@@ -15,16 +15,18 @@ interface IState {
   password: string
 }
 
-interface ISignInProps {
+interface ISignIn {
   SignInRemote: Redux.ActionCreator<any>
 }
 
-class SignIn extends React.Component<ISignInProps & Dispatch<any> & RouteComponentProps<any>, IState> {
+type ISignInProps = ISignIn & Dispatch<any> & RouteComponentProps<any>
+
+class SignIn extends React.Component<ISignInProps, IState> {
   public state = {
     userOrEmail: '',
     password: ''
   }
-  constructor (props: ISignInProps & Dispatch<any> & RouteComponentProps<any>) {
+  constructor (props: ISignInProps) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)

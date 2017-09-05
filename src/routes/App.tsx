@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect, Dispatch } from 'react-redux'
-import { setUserMyInfoRemote } from 'actions'
+import { loadUserMyInfoRemote } from 'actions'
 import { RouteComponentProps } from 'react-router'
 import { Switch } from 'react-router-dom'
 
@@ -23,7 +23,7 @@ import ModalPhoto from './Photo/Modal'
 import { IUserInfo } from '../models'
 
 interface IProps {
-  setUserMyInfoRemote: any
+  loadUserMyInfoRemote: any
   isSignIn: boolean,
   userInfo?: IUserInfo
   isFetching: boolean
@@ -61,8 +61,8 @@ class AppComponent extends React.Component<IProps & Dispatch<any> & RouteCompone
   }
 
   componentDidMount () {
-    const { setUserMyInfoRemote } = this.props
-    setUserMyInfoRemote()
+    const { loadUserMyInfoRemote } = this.props
+    loadUserMyInfoRemote()
       .then(() => {
         this.setState({
           loading: false
@@ -90,7 +90,7 @@ class AppComponent extends React.Component<IProps & Dispatch<any> & RouteCompone
           <GuestRoute path="/account/SignIn" component={ SignIn } isSignIn={ isSignIn } />
           <PrivateRoute path="/photo/:photoId" component={ Photo } isSignIn={ isSignIn } />
           <PrivateRoute path="/upload" component={ Upload } isSignIn={ isSignIn } />
-          <PrivateRoute path="/:username" component={ UserHome } isSignIn={ isSignIn } />
+          <PrivateRoute path="/:userName" component={ UserHome } isSignIn={ isSignIn } />
         </Switch>
         {
           isModal &&
@@ -108,6 +108,6 @@ export default connect(
   }),
   (dispatch: Dispatch<any>) =>
     bindActionCreators({
-      setUserMyInfoRemote
+      loadUserMyInfoRemote
     }, dispatch)
 )(AppComponent as React.ComponentClass<any>)

@@ -20,10 +20,25 @@ export function setUserInfo (info: IUserInfo) {
   }
 }
 
-export function setUserMyInfoRemote () {
+export function loadUserMyInfoRemote () {
   return (dispatch: any) => {
     dispatch(starsRequest());
-    return axios.get('/api/user/me')
+    return axios.get('/api/users/me')
+      .then((info: any) => {
+        dispatch(starsSuccess())
+        dispatch(setUserInfo(info))
+        return info
+      })
+      .catch(err => {
+        dispatch(starsFailure(err))
+      })
+  }
+}
+
+export function loadUserNameInfoRemote (name: string) {
+  return (dispatch: any) => {
+    dispatch(starsRequest());
+    return axios.get(`/api/users/${name}?name=1`)
       .then((info: any) => {
         dispatch(starsSuccess())
         dispatch(setUserInfo(info))

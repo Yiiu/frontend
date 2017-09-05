@@ -29,7 +29,7 @@ export default (props: IPhotoProps) => {
           <span className={ styles.userName }>{ data.user.username }</span>
         </div>
         <div className={ styles.action }>
-          <Heart color="#fff" size={ 18 }/>
+          <Heart color={ data.is_like ? '#fc6a96' : '#fff' } size={ 18 } fill={ data.is_like }/>
         </div>
       </div>
     </section>
