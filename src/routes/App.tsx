@@ -35,8 +35,7 @@ interface IState {
 
 @autobind
 class AppComponent extends React.Component<IProps & Dispatch<any> & RouteComponentProps<any>, IState> {
-
-  state = {
+  public state = {
     loading: true
   }
 
@@ -57,6 +56,8 @@ class AppComponent extends React.Component<IProps & Dispatch<any> & RouteCompone
       (!location.state || !location.state.modal)
     ) {
       this.previousLocation = this.props.location
+    } else if (location.pathname !== '/') {
+      this.previousLocation = newProps.location
     }
   }
 
@@ -84,7 +85,12 @@ class AppComponent extends React.Component<IProps & Dispatch<any> & RouteCompone
       <section>
         <Title title="Soap" />
         <LoadingBar isFetching={ isFetching } />
-        <Header isSignIn={ isSignIn } userInfo={ userInfo }/>
+        <Header
+          action={ this.props.history.action }
+          pathname={ location.pathname }
+          isSignIn={ isSignIn }
+          userInfo={ userInfo }
+        />
         <Switch location={ isModal ? this.previousLocation : location }>
           <PrivateRoute exact path="/" component={ Home } isSignIn={ isSignIn }/>
           <GuestRoute path="/account/SignIn" component={ SignIn } isSignIn={ isSignIn } />

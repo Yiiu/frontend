@@ -53,3 +53,8 @@
     transform: translate3d(0, 100%, 0);
   }
 }
+
+.photo-list {
+  display: flex;
+  align-items: flex-start;
+}

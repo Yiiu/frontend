@@ -8,15 +8,17 @@ import { Title } from 'components'
 
 import { IPhotoProps, IPhotoState } from './index'
 // import { IPhotoInfo } from 'models'
-// import styles from './style.less'
+import styles from './style.less'
 import PhotoRender from './PhotoRender'
 
 import {
   loadPhotoDetailRemote
 } from 'actions'
 
-class ModalPhoto extends React.Component<IPhotoProps & Dispatch<any> & RouteComponentProps<any>, IPhotoState> {
-  constructor (props: IPhotoProps & Dispatch<any> & RouteComponentProps<any>) {
+type IPhoto = IPhotoProps & Dispatch<any> & RouteComponentProps<any>
+
+class ModalPhoto extends React.Component<IPhoto, IPhotoState> {
+  constructor (props: IPhoto) {
     super(props)
   }
 
@@ -32,10 +34,10 @@ class ModalPhoto extends React.Component<IPhotoProps & Dispatch<any> & RouteComp
     }
     return (
       <RenderInBody>
-        <div>
+        <section className={ styles['photo-modal'] }>
           <Title title="photo" />
-          <PhotoRender { ...photoDetail } />
-        </div>
+          <PhotoRender modal { ...photoDetail } />
+        </section>
       </RenderInBody>
     )
   }

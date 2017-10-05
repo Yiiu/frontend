@@ -112,14 +112,14 @@ export default class ImageModal extends React.Component<IImageModal, any> {
     const { url, uploadPhoto, onClose } = this.props
     return (
       <RenderInBody>
-          <Animate
-            transitionName="fade"
-          >
-            {
-              url &&
-              <ImageContent url={ url } onClose={ onClose } uploadPhoto={ uploadPhoto } />
-            }
-          </Animate>
+        <Animate
+          transitionName="fade"
+        >
+          {
+            url &&
+            <ImageContent url={ url } onClose={ onClose } uploadPhoto={ uploadPhoto } />
+          }
+        </Animate>
       </RenderInBody>
     )
   }

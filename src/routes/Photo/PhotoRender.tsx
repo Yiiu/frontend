@@ -1,10 +1,27 @@
 import * as React from 'react'
 import { IPhotoInfo } from 'models'
+import classNames from 'classnames'
 
-const Photo: React.StatelessComponent<IPhotoInfo> = () => {
+import styles from './style.less';
+
+interface IPhotoRenderProps {
+  modal?: boolean
+}
+type IPhoto = IPhotoRenderProps & IPhotoInfo
+
+const Photo: React.StatelessComponent<IPhoto> = ({
+  links,
+  modal = false
+}) => {
   return (
-    <section className="photo-box">
-      test
+    <section
+      className={ classNames(styles['photo-box'], {
+        [styles['is-modal']]: modal
+      }) }
+    >
+      <div className={ styles.image }>
+        <img src={ links } alt=""/>
+      </div>
     </section>
   )
 }

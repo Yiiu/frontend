@@ -3,7 +3,8 @@ import { IPhotoInfo } from 'models'
 
 import {
   SET_PHOTO_DETAIL,
-  SET_PHOTO_LIST
+  SET_PHOTO_LIST,
+  SET_PHOTO_LIKE
 } from '../constants'
 import {
   starsRequest,
@@ -19,11 +20,21 @@ export function setPhotoDetail (detail: IPhotoInfo) {
     }
   }
 }
+
 export function setPhotoList (list: [IPhotoInfo]) {
   return {
     type: SET_PHOTO_LIST,
     payload: {
       list
+    }
+  }
+}
+
+export function setLikePhoto (detail: IPhotoInfo) {
+  return {
+    type: SET_PHOTO_LIKE,
+    payload: {
+      detail
     }
   }
 }
@@ -78,6 +89,20 @@ export function loadUserPhotosRemote (userId: string) {
         dispatch(starsSuccess())
         dispatch(setPhotoList(list))
         return list
+      })
+      .catch(err => {
+        dispatch(starsFailure(err))
+      })
+  }
+}
+
+export function likePhotoRemote (photoId: string, isLike: boolean) {
+  return (dispatch: any) => {
+    dispatch(starsRequest());
+    return axios.post(`/api/photos/${photoId}/like${isLike ? '?unlike=1' : ''}`)
+      .then((photo: any) => {
+        dispatch(starsSuccess())
+        return photo
       })
       .catch(err => {
         dispatch(starsFailure(err))

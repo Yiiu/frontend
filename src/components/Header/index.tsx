@@ -1,4 +1,6 @@
 import * as React from 'react'
+import classNames from 'classnames'
+
 import { Aperture, User, Compass, Bell, Upload } from 'feather'
 import { Link } from 'react-router-dom'
 // import Nav from './components/Nav'
@@ -8,16 +10,19 @@ import { IUserInfo } from '../../models'
 export interface IHeaderProps {
   isSignIn: boolean
   userInfo: IUserInfo
+  pathname: string
+  action: string
 }
 export default class Header extends React.Component<IHeaderProps, any> {
   constructor (props: IHeaderProps) {
     super(props)
   }
+
   userRender () {
     const { userInfo } = this.props;
     return (
       <span className={ styles.nav }>
-        <Link to="upload" title="sfasdf">
+        <Link to="/upload" title="sfasdf">
           <Upload className={ styles.icon } />
         </Link>
         <Compass className={ styles.icon }/>
@@ -28,6 +33,7 @@ export default class Header extends React.Component<IHeaderProps, any> {
       </span>
     )
   }
+
   guestRender () {
     return (
       <Link to="/account/SignIn">
@@ -35,10 +41,16 @@ export default class Header extends React.Component<IHeaderProps, any> {
       </Link>
     )
   }
+
   render () {
-    const { isSignIn } = this.props;
+    const { isSignIn, action, pathname } = this.props;
+    const isLight = action === 'POP' && /photo\/\w+/.test(pathname)
     return (
-      <header className={ styles.root }>
+      <header
+        className={ classNames(styles.root, {
+          [styles.light]: isLight
+        }) }
+      >
         <section className={ styles.box }>
           <Link to="/">
             <section className={ styles.logo }>

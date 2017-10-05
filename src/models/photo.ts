@@ -15,4 +15,5 @@ export interface IPhotoInfo {
 
 export interface IPhotoState {
   photoDetail: IPhotoInfo | null
+  photoList?: [IPhotoInfo]
 }
