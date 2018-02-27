@@ -16,6 +16,7 @@ import autobind from 'autobind-decorator'
 
 import Home from './Home'
 import SignIn from './SignIn'
+import SignUp from './SignUp'
 import Upload from './Upload'
 import Photo from './Photo'
 import UserHome from './User/Home'
@@ -94,6 +95,7 @@ class AppComponent extends React.Component<IProps & Dispatch<any> & RouteCompone
         <Switch location={ isModal ? this.previousLocation : location }>
           <PrivateRoute exact path="/" component={ Home } isSignIn={ isSignIn }/>
           <GuestRoute path="/account/SignIn" component={ SignIn } isSignIn={ isSignIn } />
+          <GuestRoute path="/account/SignUp" component={ SignUp } isSignIn={ isSignIn } />
           <PrivateRoute path="/photo/:photoId" component={ Photo } isSignIn={ isSignIn } />
           <PrivateRoute path="/upload" component={ Upload } isSignIn={ isSignIn } />
           <PrivateRoute path="/:userName" component={ UserHome } isSignIn={ isSignIn } />
