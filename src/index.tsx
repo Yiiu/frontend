@@ -1,20 +1,34 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
+import { createBrowserHistory } from 'history';
 import {
-  BrowserRouter as Router,
+  Router,
   Route
 } from 'react-router-dom'
+import { useStrict } from 'mobx'
+import { Provider } from 'mobx-react'
+
+import { RouterStore, TestStore } from './stores';
+
 import App from './routes/App'
-import configureStore from './stores'
 import registerServiceWorker from './registerServiceWorker'
-import { Provider } from 'react-redux';
+import { STORE_ROUTER, STORT_TEST } from './constants/stores'
 import './styles/index.less'
 
-const store = configureStore()
+useStrict(true)
+
+const history = createBrowserHistory();
+const routerStore = new RouterStore(history);
+const testStore = new TestStore(['1', '2', '3']);
+
+const rootStores = {
+  [STORE_ROUTER]: routerStore,
+  [STORT_TEST]: testStore
+};
 
 ReactDOM.render(
-  <Provider store={ store }>
-    <Router>
+  <Provider {...rootStores}>
+    <Router history={history}>
       <Route component={App} />
     </Router>
   </Provider>,
