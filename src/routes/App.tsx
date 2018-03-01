@@ -1,24 +1,17 @@
 import * as React from 'react'
-import { inject, observer } from 'mobx-react';
+import { Switch } from 'react-router-dom'
 
-import { TestStore } from '../stores';
-import { STORE_ROUTER, STORT_TEST } from '../constants/stores'
+import { GuestRoute } from 'components/Router'
 
-@inject(STORE_ROUTER, STORT_TEST)
-@observer
+// router
+import Home from './Home'
+
 export default class App extends React.Component {
   render () {
-    const todoStore = this.props[STORT_TEST] as TestStore
     return (
-      <div
-        onClick={() => todoStore.addTodo('1')}
-      >
-        {
-          todoStore.todos.map((todo, i) => 
-            <span key={i}>{todo}</span>
-          )
-        }
-      </div>
+      <Switch>
+        <GuestRoute component={Home} path="/" />
+      </Switch>
     )
   }
 }

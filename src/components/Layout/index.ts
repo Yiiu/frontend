@@ -1,5 +1,1 @@
-import Window from './Window'
-
-export {
-  Window
-}
+export * from './Layout'
