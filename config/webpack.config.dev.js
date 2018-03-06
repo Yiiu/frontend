@@ -12,6 +12,7 @@ const getClientEnvironment = require('./env');
 const paths = require('./paths');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const { TsConfigPathsPlugin } = require('awesome-typescript-loader')
+const tsImportPluginFactory = require('ts-import-plugin')
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -95,6 +96,8 @@ module.exports = {
       'models': path.resolve(__dirname, '../src/models'),
       'util': path.resolve(__dirname, '../src/util'),
       'feather': path.resolve(__dirname, '../src/feather'),
+      'constants': path.resolve(__dirname, '../src/constants'),
+      'styles': path.resolve(__dirname, '../src/styles'),
       'react-native': 'react-native-web',
     },
     plugins: [
@@ -174,7 +177,27 @@ module.exports = {
       {
         test: /\.(ts|tsx)$/,
         include: paths.appSrc,
-        loader: require.resolve('ts-loader'),
+        use: [
+          {
+
+            loader: require.resolve('ts-loader'),
+            options: {
+              transpileOnly: true,
+              getCustomTransformers: () => ({
+                before: [
+                    tsImportPluginFactory({
+                    libraryName: 'antd',
+                    libraryDirectory: 'lib',
+                    style: true
+                  })
+                ]
+              }),
+              compilerOptions: {
+                module: 'es2015'
+              }
+            },
+          }
+        ]
       },
       // "postcss" loader applies autoprefixer to our CSS.
       // "css" loader resolves paths in CSS and adds assets as dependencies.
@@ -183,6 +206,43 @@ module.exports = {
       // in development "style" loader enables hot editing of CSS.
       {
         test: /\.(css|less)$/,
+        include: /node_modules/,
+        use: [
+          require.resolve('style-loader'),
+          {
+            loader: require.resolve('css-loader'),
+            options: {
+              importLoaders: 1,
+              modules: false,
+              localIdentName: '[hash:base64:8]'
+            },
+          },
+          {
+            loader: require.resolve('postcss-loader'),
+            options: {
+              ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+              plugins: () => [
+                require('postcss-flexbugs-fixes'),
+                autoprefixer({
+                  browsers: [
+                    '>1%',
+                    'last 4 versions',
+                    'Firefox ESR',
+                    'not ie < 9', // React doesn't support IE8 anyway
+                  ],
+                  flexbox: 'no-2009',
+                }),
+              ],
+            },
+          },
+          {
+            loader: require.resolve('less-loader') // compiles Less to CSS
+          }
+        ],
+      },
+      {
+        test: /\.(css|less)$/,
+        exclude: /node_modules/,
         use: [
           require.resolve('style-loader'),
           {

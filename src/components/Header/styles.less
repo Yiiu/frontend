@@ -1,4 +1,41 @@
+@import "~styles/color.less";
+
 .header {
   height: 70px;
-  background-color: #fff
+  background-color: @gray;
+  .container {
+    width: 85%;
+    height: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    a {
+      text-decoration: none;
+      span {
+        font-size: 26px;
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+      }
+    }
+  }
+  .tool {
+    a.href {
+      text-decoration: none;
+      .href(darken(@gray, 60%));
+      &.blue {
+        .href(@blue);
+      }
+      &:last-child {
+        margin-left: 6px;
+      }
+    }
+  }
+}
+
+.href (@color) {
+  text-decoration: none;
+  color: @color;
 }

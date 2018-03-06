@@ -4,7 +4,7 @@ import { RouterStore } from './RouterStore'
 import { TestStore } from './TestStore'
 import { AccountStore } from './AccountStore'
 
-import { STORE_ROUTER, STORT_TEST, STORT_ACCOUNT } from '../constants/stores'
+import { STORE_ROUTER, STORT_TEST, STORT_ACCOUNT } from 'constants/stores'
 
 const history = createBrowserHistory();
 const routerStore = new RouterStore(history);

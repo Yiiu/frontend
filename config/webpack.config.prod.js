@@ -91,6 +91,8 @@ module.exports = {
       'models': path.resolve(__dirname, '../src/models'),
       'util': path.resolve(__dirname, '../src/util'),
       'feather': path.resolve(__dirname, '../src/feather'),
+      'constants': path.resolve(__dirname, '../src/constants'),
+      'styles': path.resolve(__dirname, '../src/styles'),
       'react-native': 'react-native-web',
     },
     plugins: [
