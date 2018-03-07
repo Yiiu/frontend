@@ -66,7 +66,7 @@ module.exports = {
     // containing code from all our entry points, and the Webpack runtime.
     filename: 'static/js/bundle.js',
     // There are also additional JS chunk files if you use code splitting.
-    chunkFilename: 'static/js/[name].chunk.js',
+    chunkFilename: 'static/js/[name].[chunkhash:5].chunk.js',
     // This is the URL that app is served from. We use "/" in development.
     publicPath: publicPath,
     // Point sourcemap entries to original disk location
@@ -179,7 +179,6 @@ module.exports = {
         include: paths.appSrc,
         use: [
           {
-
             loader: require.resolve('ts-loader'),
             options: {
               transpileOnly: true,

@@ -1,7 +1,8 @@
 import * as React from 'react'
 import {
   Route,
-  Redirect
+  Redirect,
+  RouteComponentProps
 } from 'react-router-dom'
 import { inject, observer } from 'mobx-react';
 
@@ -10,7 +11,7 @@ import { AccountStore } from '../../stores'
 import { STORT_ACCOUNT } from '../../constants/stores'
 
 export interface IStatelesGuestRouteProps {
-  component: React.ComponentClass<any>
+  component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>
   redirect?: string
   [key: string]: any
 }

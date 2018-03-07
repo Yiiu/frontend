@@ -18,3 +18,5 @@ declare module 'rc-animate'
 declare module 'velocity-animate'
 
 declare module 'autobind-decorator'
+
+declare const System: any

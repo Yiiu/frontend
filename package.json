@@ -12,11 +12,13 @@
     "antd": "^3.2.3",
     "autobind-decorator": "^2.1.0",
     "babel-loader": "^7.1.4",
+    "bundle-loader": "^0.5.6",
     "history": "^4.6.3",
     "mobx": "^3.6.1",
     "mobx-react": "^4.4.2",
     "mobx-react-router": "^4.0.1",
     "react": "^16.2.0",
+    "react-async-component": "^1.0.2",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
     "ts-import-plugin": "^1.4.4"

@@ -1,0 +1,32 @@
+@import "~styles/color.less";
+
+.SignContainer {
+  max-width: 240px;
+  margin: 0 auto;
+  margin-top: 60px;
+  .SignTitle {
+    font-size: 22px;
+    text-align: center;
+  }
+  .SignButton {
+    margin-top: 12px;
+    :global(.ant-btn) {
+      width: 100%;
+      span {
+        color: #fff
+      }
+    }
+  }
+}
+
+.label {
+  display: block;
+  span.title {
+    display: inline-block;
+    margin-bottom: 6px;
+    margin-top: 6px;
+    color: darken(@gray, 40%);
+  }
+  .input {
+  }
+}
