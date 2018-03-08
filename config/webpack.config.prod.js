@@ -9,8 +9,10 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
+const tsImportPluginFactory = require('ts-import-plugin')
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
+const pkg = require('../package.json');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -24,6 +26,9 @@ const shouldUseRelativeAssetPaths = publicPath === './';
 const publicUrl = publicPath.slice(0, -1);
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
+
+
+const theme = pkg.theme
 
 // Assert this just to be safe.
 // Development builds of React are slow and not intended for production.
@@ -164,7 +169,26 @@ module.exports = {
       {
         test: /\.(ts|tsx)$/,
         include: paths.appSrc,
-        loader: require.resolve('ts-loader'),
+        use: [
+          {
+            loader: require.resolve('ts-loader'),
+            options: {
+              transpileOnly: true,
+              getCustomTransformers: () => ({
+                before: [
+                    tsImportPluginFactory({
+                    libraryName: 'antd',
+                    libraryDirectory: 'lib',
+                    style: true
+                  })
+                ]
+              }),
+              compilerOptions: {
+                module: 'es2015'
+              }
+            },
+          }
+        ]
       },
       // The notation here is somewhat confusing.
       // "postcss" loader applies autoprefixer to our CSS.
@@ -178,50 +202,83 @@ module.exports = {
       // tags. If you use code splitting, however, any async bundles will still
       // use the "style" loader inside the async code so CSS from them won't be
       // in the main CSS file.
+      // in the main CSS file.
+
       {
         test: /\.(css|less)$/,
-        loader: ExtractTextPlugin.extract(
-          Object.assign(
-            {
-              fallback: require.resolve('style-loader'),
-              use: [
-                {
-                  loader: require.resolve('css-loader'),
-                  options: {
-                    importLoaders: 1,
-                    minimize: true,
-                    sourceMap: true,
-                    modules: true,
-                    localIdentName: '[path][name]__[local]--[hash:base64:5]'
-                  },
-                },
-                {
-                  loader: require.resolve('postcss-loader'),
-                  options: {
-                    ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
-                    plugins: () => [
-                      require('postcss-flexbugs-fixes'),
-                      autoprefixer({
-                        browsers: [
-                          '>1%',
-                          'last 4 versions',
-                          'Firefox ESR',
-                          'not ie < 9', // React doesn't support IE8 anyway
-                        ],
-                        flexbox: 'no-2009',
-                      }),
-                    ],
-                  },
-                },
-                {
-                  loader: require.resolve('less-loader') // compiles Less to CSS
-                }
+        include: /node_modules/,
+        use: [
+          require.resolve('style-loader'),
+          {
+            loader: require.resolve('css-loader'),
+            options: {
+              importLoaders: 1,
+              modules: false,
+              localIdentName: '[hash:base64:8]'
+            },
+          },
+          {
+            loader: require.resolve('postcss-loader'),
+            options: {
+              ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+              plugins: () => [
+                require('postcss-flexbugs-fixes'),
+                autoprefixer({
+                  browsers: [
+                    '>1%',
+                    'last 4 versions',
+                    'Firefox ESR',
+                    'not ie < 9', // React doesn't support IE8 anyway
+                  ],
+                  flexbox: 'no-2009',
+                }),
               ],
             },
-            extractTextPluginOptions
-          )
-        ),
-        // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
+          },
+          {
+            loader: require.resolve('less-loader'),
+            options: {
+              modifyVars: theme
+            }
+          }
+        ],
+      },
+      {
+        test: /\.(css|less)$/,
+        exclude: /node_modules/,
+        include: /src/,
+        use: [
+          require.resolve('style-loader'),
+          {
+            loader: require.resolve('css-loader'),
+            options: {
+              importLoaders: 1,
+              modules: true,
+              localIdentName: '[hash:base64:8]'
+            },
+          },
+          {
+            loader: require.resolve('postcss-loader'),
+            options: {
+              ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+              plugins: () => [
+                require('postcss-flexbugs-fixes'),
+                autoprefixer({
+                  browsers: [
+                    '>1%',
+                    'last 4 versions',
+                    'Firefox ESR',
+                    'not ie < 9', // React doesn't support IE8 anyway
+                  ],
+                  flexbox: 'no-2009',
+                }),
+              ],
+            },
+          },
+          {
+            loader: require.resolve('less-loader')
+          }
+        ],
       },
       // ** STOP ** Are you adding a new loader?
       // Remember to add the new extension(s) to the "file" loader exclusion list.

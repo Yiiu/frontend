@@ -13,6 +13,7 @@ const paths = require('./paths');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const { TsConfigPathsPlugin } = require('awesome-typescript-loader')
 const tsImportPluginFactory = require('ts-import-plugin')
+const pkg = require('../package.json');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -23,6 +24,8 @@ const publicPath = '/';
 const publicUrl = '';
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
+
+const theme = pkg.theme
 
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
@@ -235,13 +238,17 @@ module.exports = {
             },
           },
           {
-            loader: require.resolve('less-loader') // compiles Less to CSS
+            loader: require.resolve('less-loader'),
+            options: {
+              modifyVars: theme
+            }
           }
         ],
       },
       {
         test: /\.(css|less)$/,
         exclude: /node_modules/,
+        include: /src/,
         use: [
           require.resolve('style-loader'),
           {
@@ -271,7 +278,7 @@ module.exports = {
             },
           },
           {
-            loader: require.resolve('less-loader') // compiles Less to CSS
+            loader: require.resolve('less-loader')
           }
         ],
       },
