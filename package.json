@@ -6,6 +6,7 @@
     "@types/history": "^4.6.0",
     "@types/jest": "^20.0.6",
     "@types/node": "^8.0.19",
+    "@types/qs": "^6.5.1",
     "@types/react": "^16.0.38",
     "@types/react-dom": "^16.0.4",
     "@types/react-router-dom": "^4.0.8",
@@ -124,5 +125,14 @@
   },
   "theme": {
     "primary-color": "#007dff"
+  },
+  "proxy": {
+    "/oauth": {
+      "target": "http://localhost:2333/",
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/oauth": "/oauth"
+      }
+    }
   }
 }

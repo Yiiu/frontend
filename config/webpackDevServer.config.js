@@ -84,6 +84,13 @@ module.exports = function(proxy, allowedHost) {
         pathRewrite: {
           '^/api': ''
         }
+      },
+      '/oauth': {
+        target: 'http://localhost:2333/oauth',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/oauth': ''
+        }
       }
     },
     setup(app) {

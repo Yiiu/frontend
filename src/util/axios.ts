@@ -11,12 +11,12 @@ let instance = axios.create({
 instance.interceptors.response.use(
   response => {
     if (response.status === 401) {
-      history.push('/account/SignIn')
-      return Promise.reject(response.data)
+      history.push('/SignIn')
+      return Promise.reject(response)
     } else if (response.status >= 400) {
-      return Promise.reject(response.data)
+      return Promise.reject(response)
     } else {
-      return Promise.resolve(response.data)
+      return Promise.resolve(response)
     }
   },
   error =>

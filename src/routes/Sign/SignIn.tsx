@@ -1,17 +1,38 @@
 import * as React from 'react'
 import { Button } from 'antd'
+import { inject, observer } from 'mobx-react';
+
+import { AccountStore } from 'stores'
+
+import { STORT_ACCOUNT } from 'constants/stores'
 
 import LabelInput from './components/LabelInput'
 
 import styles from './styles.less'
 
+@inject(STORT_ACCOUNT)
+@observer
 export default class SignIn extends React.Component {
   state = {
     username: '',
-    password: ''
+    password: '',
+    loading: false
   }
-  render () {
+
+  _signIn = async () => {
     const { username, password } = this.state;
+    const { signInRemote } = this.props[STORT_ACCOUNT] as AccountStore
+    this.setState({
+      loading: true
+    })
+    await signInRemote(username, password)
+    this.setState({
+      loading: false
+    })
+  }
+
+  render () {
+    const { username, password, loading } = this.state;
     const onChange = (value: string) => {
       return (e: any) => {
         this.setState({
@@ -34,7 +55,13 @@ export default class SignIn extends React.Component {
           onChange={onChange('password')}
         />
         <section className={styles.SignButton}>
-          <Button type="primary">登陆</Button>
+          <Button
+            type="primary"
+            onClick={this._signIn}
+            loading={loading}
+          >
+            登陆
+          </Button>
         </section>
       </section>
     )
