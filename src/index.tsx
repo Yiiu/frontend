@@ -12,7 +12,7 @@ import registerServiceWorker from './registerServiceWorker'
 
 import rootStores from './stores'
 
-import './styles/basic.less'
+import './styles/index.less'
 
 useStrict(true)
 

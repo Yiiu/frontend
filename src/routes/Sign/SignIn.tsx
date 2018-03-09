@@ -25,7 +25,13 @@ export default class SignIn extends React.Component {
     this.setState({
       loading: true
     })
-    await fetchSignIn(username, password)
+    try {
+      await fetchSignIn(username, password)
+    } catch (err) {
+      this.setState({
+        loading: false
+      })
+    }
   }
 
   render () {
