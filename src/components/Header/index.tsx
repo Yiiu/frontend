@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import classnames from 'classnames'
 import { inject, observer } from 'mobx-react';
 
+import { AccountStore } from 'stores'
+
 import styles from './styles.less'
 
 import { STORT_ACCOUNT } from 'constants/stores'

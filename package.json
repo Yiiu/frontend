@@ -22,6 +22,7 @@
     "react-async-component": "^1.0.2",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
+    "store": "^2.0.12",
     "ts-import-plugin": "^1.4.4"
   },
   "devDependencies": {

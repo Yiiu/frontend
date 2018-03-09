@@ -10,27 +10,28 @@ export interface ISignInRes {
 
 export class AccountStore {
   @observable
-  info: any = {}
+  info = null
 
   @computed
   get isSignIn () {
-    return !!this.info.user
+    return !!this.info
+  }
+
+  fetchSignIn = async (username: string, password: string) => {
+    let { data } = await axios.request<ISignInRes>({
+      url: '/oauth/token',
+      method: 'post',
+      headers: {
+        'Authorization': 'Basic OTcxMDUxNzYwOTA3YzMyNzo5NzA1ZWI3YWMyYzk4NDAz',
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: qs.stringify({username, password, grant_type: 'password'}),
+    })
+    this.setInfo(data.user)
   }
 
   @action
-  async signInRemote (username: string, password: string) {
-    try {
-      const { data } = await axios.request<ISignInRes>({
-        url: '/oauth/token',
-        method: 'post',
-        headers: {
-          'Authorization': 'Basic OTcwNWViN2FjMmM5ODQwMzo5NzEwNTE3NjA5MDdjMzI3',
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        data: qs.stringify({username, password, grant_type: 'password'}),
-      })
-    } catch (err) {
-      console.log(123123)
-    }
+  setInfo = (user: any) => {
+    this.info = user
   }
 }

@@ -21,14 +21,11 @@ export default class SignIn extends React.Component {
 
   _signIn = async () => {
     const { username, password } = this.state;
-    const { signInRemote } = this.props[STORT_ACCOUNT] as AccountStore
+    const { fetchSignIn } = this.props[STORT_ACCOUNT] as AccountStore
     this.setState({
       loading: true
     })
-    await signInRemote(username, password)
-    this.setState({
-      loading: false
-    })
+    await fetchSignIn(username, password)
   }
 
   render () {
@@ -40,6 +37,7 @@ export default class SignIn extends React.Component {
         })
       }
     }
+    console.log(this.props[STORT_ACCOUNT])
     return (
       <section className={styles.SignContainer}>
         <h1 className={styles.SignTitle}>登陆</h1>
