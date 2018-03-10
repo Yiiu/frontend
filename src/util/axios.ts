@@ -8,6 +8,7 @@ let instance = axios.create({
     return status < 500 && status !== 404
   }
 })
+
 instance.interceptors.response.use(
   response => {
     if (response.status === 401) {

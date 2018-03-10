@@ -43,7 +43,6 @@ export default class SignIn extends React.Component {
         })
       }
     }
-    console.log(this.props[STORT_ACCOUNT])
     return (
       <section className={styles.SignContainer}>
         <h1 className={styles.SignTitle}>登陆</h1>
