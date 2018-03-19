@@ -1,4 +1,5 @@
 import axios from 'axios'
+import * as qs from 'qs'
 import createBrowserHistory from 'history/createBrowserHistory'
 
 const history = createBrowserHistory()
@@ -23,4 +24,15 @@ instance.interceptors.response.use(
   error =>
     Promise.reject(error)
 )
+export const token = async<T> (data: any) => {
+  return await axios.request<T>({
+    url: '/oauth/token',
+    method: 'post',
+    headers: {
+      'Authorization': 'Basic OTcxMDUxNzYwOTA3YzMyNzo5NzA1ZWI3YWMyYzk4NDAz',
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    data: qs.stringify(data),
+  })
+}
 export default instance

@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Link } from 'react-router-dom'
 import classnames from 'classnames'
 import { inject, observer } from 'mobx-react';
+import { Popover } from 'antd';
 
 import { AccountStore } from 'stores'
 
@@ -13,12 +14,20 @@ import { STORT_ACCOUNT } from 'constants/stores'
 @observer
 export default class Header extends React.Component<any, any> {
   _signRender = () => {
-    const { isSignIn } = this.props[STORT_ACCOUNT]
-    if (isSignIn) {
+    const { isSignIn, info } = this.props[STORT_ACCOUNT] as AccountStore
+    const content = (
+      <div>
+        <p>Content</p>
+        <p>Content</p>
+      </div>
+    )    
+    if (isSignIn && info) {
       return (
-        <div className={styles.tool}>
-          <span>hello</span>
-        </div>
+        <Popover placement="bottomRight" content={content}>
+          <div className={styles.tool}>
+            <span>{info.username}</span>
+          </div>
+        </Popover>
       )
     } else {
       return (

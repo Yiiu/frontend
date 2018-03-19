@@ -1,11 +1,10 @@
 import { observable, computed, action } from 'mobx'
 import * as store from 'store';
-import * as qs from 'qs'
 import * as moment from 'moment'
 import { notification } from 'antd'
 
 import { verifyAccountStore } from 'util/verify'
-import axios from 'util/axios'
+import axios, { token } from 'util/axios'
 import { error } from 'util/info'
 
 export interface ISignInRes {
@@ -15,14 +14,17 @@ export interface ISignInRes {
   refreshToken: string
   refreshTokenExpiresAt: Date
 }
+export interface IUserInfo {
+  username: string
+  [key: string]: any
+}
 
 export class AccountStore {
   @observable
-  info = null
+  info: IUserInfo | null = null
 
   @computed
   get isSignIn () {
-    console.log(111123123)
     return !!this.info
   }
 
@@ -32,29 +34,47 @@ export class AccountStore {
     if (isLegal) {
       const { accessToken, accessTokenExpiresAt, refreshToken, refreshTokenExpiresAt } = data
       if (moment(accessTokenExpiresAt).isAfter(moment())) {
-        console.log(123123, accessToken)
+        axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+        this.fetchInfo()
       } else if (moment(refreshTokenExpiresAt).isAfter(moment())) {
-        console.log(321321, refreshToken)
+        await this.fetchRefreshToken(refreshToken)
       } else {
         console.log(3123123)
       }
     } else {
-      console.log(1)
+      notification.error({
+        message: '验证失败',
+        description: '请重新登陆',
+        duration: null
+      })
     }
-    console.log(123123123, data)
+  }
+
+  fetchInfo = async () => {
+    const { data } = await axios.get('/api/user/me')
+    this.setInfo(data)
+  }
+
+  fetchRefreshToken = async (refreshToken: string) => {
+    try {
+      let { data } = await token<ISignInRes>({
+        grant_type: 'refresh_token',
+        refresh_token: refreshToken
+      })
+      return data
+    } catch (err) {
+      notification.error({
+        message: '验证失败',
+        description: '请重新登陆',
+        duration: null
+      })
+      return err
+    }
   }
 
   fetchSignIn = async (username: string, password: string) => {
     try {
-      let { data } = await axios.request<ISignInRes>({
-        url: '/oauth/token',
-        method: 'post',
-        headers: {
-          'Authorization': 'Basic OTcxMDUxNzYwOTA3YzMyNzo5NzA1ZWI3YWMyYzk4NDAz',
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        data: qs.stringify({username, password, grant_type: 'password'}),
-      })
+      let { data } = await token<ISignInRes>({username, password, grant_type: 'password'})
       store.set('account', {
         accessToken: data.accessToken,
         accessTokenExpiresAt: data.accessTokenExpiresAt,
@@ -64,14 +84,12 @@ export class AccountStore {
       this.setInfo(data.user)
     } catch (err) {
       if (err.data.message) {
-        console.log(error, err.data.message)
         notification.error({
           message: '登录失败',
           description: error[err.data.message],
           duration: null
         })
       }
-      throw err.data.message
     }
   }
 
