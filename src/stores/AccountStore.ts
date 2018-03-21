@@ -61,6 +61,7 @@ export class AccountStore {
         grant_type: 'refresh_token',
         refresh_token: refreshToken
       })
+      this.setAccount(data)
       return data
     } catch (err) {
       notification.error({
@@ -75,13 +76,7 @@ export class AccountStore {
   fetchSignIn = async (username: string, password: string) => {
     try {
       let { data } = await token<ISignInRes>({username, password, grant_type: 'password'})
-      store.set('account', {
-        accessToken: data.accessToken,
-        accessTokenExpiresAt: data.accessTokenExpiresAt,
-        refreshToken: data.refreshToken,
-        refreshTokenExpiresAt: data.refreshTokenExpiresAt
-      })
-      this.setInfo(data.user)
+      this.setAccount(data)
     } catch (err) {
       if (err.data.message) {
         notification.error({
@@ -91,6 +86,17 @@ export class AccountStore {
         })
       }
     }
+  }
+
+  @action
+  setAccount = (data: any) => {
+    store.set('account', {
+      accessToken: data.accessToken,
+      accessTokenExpiresAt: data.accessTokenExpiresAt,
+      refreshToken: data.refreshToken,
+      refreshTokenExpiresAt: data.refreshTokenExpiresAt
+    })
+    this.setInfo(data.user)
   }
 
   @action

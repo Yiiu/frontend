@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Link } from 'react-router-dom'
 import classnames from 'classnames'
 import { inject, observer } from 'mobx-react';
-import { Popover } from 'antd';
+import { Popover, Modal } from 'antd';
 
 import { AccountStore } from 'stores'
 
@@ -10,9 +10,17 @@ import styles from './styles.less'
 
 import { STORT_ACCOUNT } from 'constants/stores'
 
+import {
+  User as UserIcon,
+  Upload as UploadIcon
+} from 'feather'
+
 @inject(STORT_ACCOUNT)
 @observer
 export default class Header extends React.Component<any, any> {
+  state = {
+    visible: false
+  }
   _signRender = () => {
     const { isSignIn, info } = this.props[STORT_ACCOUNT] as AccountStore
     const content = (
@@ -23,11 +31,19 @@ export default class Header extends React.Component<any, any> {
     )    
     if (isSignIn && info) {
       return (
-        <Popover placement="bottomRight" content={content}>
-          <div className={styles.tool}>
-            <span>{info.username}</span>
-          </div>
-        </Popover>
+        <div className={styles.tool}>
+          <UploadIcon
+            size={24}
+            onClick={() => {
+              this.setState({
+                visible: true
+              })
+            }}
+          />
+          <Popover placement="bottomRight" content={content}>
+            <UserIcon size={24}/>
+          </Popover>
+        </div>
       )
     } else {
       return (
@@ -50,6 +66,19 @@ export default class Header extends React.Component<any, any> {
           </div>
           { this._signRender() }
         </div>
+        <Modal
+          title="Basic Modal"
+          visible={this.state.visible}
+          onCancel={() => {
+            this.setState({
+              visible: false
+            })
+          }}
+        >
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+        </Modal>
       </header>
     )
   }
