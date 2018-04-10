@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Link } from 'react-router-dom'
 import classnames from 'classnames'
 import { inject, observer } from 'mobx-react';
-import { Popover, Modal } from 'antd';
+import { Popover } from 'antd';
 
 import { AccountStore } from 'stores'
 
@@ -32,14 +32,11 @@ export default class Header extends React.Component<any, any> {
     if (isSignIn && info) {
       return (
         <div className={styles.tool}>
-          <UploadIcon
-            size={24}
-            onClick={() => {
-              this.setState({
-                visible: true
-              })
-            }}
-          />
+          <Link to="/upload">
+            <UploadIcon
+              size={24}
+            />
+          </Link>
           <Popover placement="bottomRight" content={content}>
             <UserIcon size={24}/>
           </Popover>
@@ -66,19 +63,6 @@ export default class Header extends React.Component<any, any> {
           </div>
           { this._signRender() }
         </div>
-        <Modal
-          title="Basic Modal"
-          visible={this.state.visible}
-          onCancel={() => {
-            this.setState({
-              visible: false
-            })
-          }}
-        >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </Modal>
       </header>
     )
   }

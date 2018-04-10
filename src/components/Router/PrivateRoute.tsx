@@ -1,7 +1,8 @@
 import * as React from 'react'
 import {
   Route,
-  Redirect
+  Redirect,
+  RouteComponentProps
 } from 'react-router-dom'
 import { inject, observer } from 'mobx-react';
 
@@ -10,7 +11,9 @@ import { AccountStore } from '../../stores'
 import { STORT_ACCOUNT } from '../../constants/stores'
 
 export interface IStatelessPrivateRouteProps {
-  component: React.ComponentClass<any>
+  component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>
+  path: string
+  [key: string]: any
 }
 export const PrivateRoute: React.StatelessComponent<IStatelessPrivateRouteProps> = 
   inject(STORT_ACCOUNT)(
@@ -26,7 +29,7 @@ export const PrivateRoute: React.StatelessComponent<IStatelessPrivateRouteProps>
             render={
               props => (
                 isSignIn ? <Component {...props} /> :
-                <Redirect to={{ pathname: '/account/SignIn', state: { from: props.location } } } />
+                <Redirect to={{ pathname: '/SignIn', state: { from: props.location } } } />
               )
             }
           />

@@ -35,9 +35,9 @@ export class AccountStore {
       const { accessToken, accessTokenExpiresAt, refreshToken, refreshTokenExpiresAt } = data
       if (moment(accessTokenExpiresAt).isAfter(moment())) {
         axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-        this.fetchInfo()
+        return await this.fetchInfo()
       } else if (moment(refreshTokenExpiresAt).isAfter(moment())) {
-        await this.fetchRefreshToken(refreshToken)
+        return await this.fetchRefreshToken(refreshToken)
       } else {
         console.log(3123123)
       }
@@ -53,6 +53,7 @@ export class AccountStore {
   fetchInfo = async () => {
     const { data } = await axios.get('/api/user/me')
     this.setInfo(data)
+    return data
   }
 
   fetchRefreshToken = async (refreshToken: string) => {
