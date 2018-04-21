@@ -4,28 +4,35 @@ import {
 } from 'antd'
 import styles from './styles.less'
 
+import UploadModel from 'components/UploadModel'
+
 export default class Upload extends React.PureComponent {
   uploadInput: HTMLInputElement
+  imageRef: HTMLImageElement
   state = {
-    image: null
+    isSelectImg: false,
+    imageUrl: ''
   }
 
-  imgUrl = null
+  image = null
 
   _upload = () => {
     console.log(this.uploadInput.click())
   }
 
   _inputChange = (e: any) => {
-    console.log(e.target.files[0])
-    var reader = new FileReader();  
-    reader.readAsDataURL(e.target.files[0]);
-    reader.onload = function (e: any) {
-      console.log(this.result)
+    if (e.target.files[0]) {
+      this.image = e.target.files[0];
+      let url = window.URL.createObjectURL(this.image)
+      this.setState({
+        isSelectImg: true,
+        imageUrl: url
+      })
     }
   }
 
   render () {
+    const { imageUrl, isSelectImg } = this.state
     return (
       <div className={styles.layout}>
         <section className={styles.box}>
@@ -43,6 +50,10 @@ export default class Upload extends React.PureComponent {
             type="file"
             onChange={this._inputChange}
           />
+          {
+            isSelectImg &&
+            <UploadModel imageUrl={imageUrl} />
+          }
         </section>
       </div>
     )

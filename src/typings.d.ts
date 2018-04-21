@@ -9,6 +9,8 @@ declare module 'actions'
 
 declare module 'util'
 
+declare module 'react-spring'
+
 declare module 'feather'
 
 declare module 'classnames'

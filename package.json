@@ -16,6 +16,7 @@
     "autobind-decorator": "^2.1.0",
     "babel-loader": "^7.1.4",
     "bundle-loader": "^0.5.6",
+    "fix-orientation": "^0.0.2",
     "history": "^4.6.3",
     "mobx": "^3.6.1",
     "mobx-react": "^4.4.2",
@@ -25,6 +26,7 @@
     "react-async-component": "^1.0.2",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
+    "react-spring": "^4.2.1",
     "store": "^2.0.12",
     "ts-import-plugin": "^1.4.4"
   },
