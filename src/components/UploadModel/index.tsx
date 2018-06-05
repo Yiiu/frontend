@@ -1,4 +1,6 @@
 import * as React from 'react'
+
+import Form from './Form'
 import styles from './styles.less'
 
 export interface IUploadModel {
@@ -36,6 +38,10 @@ export default class UploadModel extends React.PureComponent<IUploadModel, {}> {
         <section
           className={styles.bg}
         />
+        <section className={styles.photo_info}>
+          <h2 className={styles.title}>填写图片内容</h2>
+          <Form />
+        </section>
       </section>
     )
   }

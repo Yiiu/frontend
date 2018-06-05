@@ -1,38 +1,58 @@
 import * as React from 'react'
+import { inject, observer } from 'mobx-react';
+import { STORT_UPLOAD } from 'constants/stores'
 import {
-  Button
+  Button,
+  message
 } from 'antd'
 import styles from './styles.less'
 
-import UploadModel from 'components/UploadModel'
-
-export default class Upload extends React.PureComponent {
+// import UploadModel from 'components/UploadModel'
+@inject(STORT_UPLOAD)
+@observer
+export default class Upload extends React.Component {
   uploadInput: HTMLInputElement
   imageRef: HTMLImageElement
   state = {
     isSelectImg: false,
-    imageUrl: ''
+    imageUrl: '',
+    btnLoading: false    
   }
 
   image = null
 
   _upload = () => {
-    console.log(this.uploadInput.click())
+    this.uploadInput.click()
   }
 
-  _inputChange = (e: any) => {
+  _inputChange = async (e: any) => {
     if (e.target.files[0]) {
       this.image = e.target.files[0];
-      let url = window.URL.createObjectURL(this.image)
       this.setState({
-        isSelectImg: true,
-        imageUrl: url
+        btnLoading: true
       })
+      try {
+        let photo = await this.props[STORT_UPLOAD].fetchUploadPhoto(this.image)
+        message.success('上传成功！')
+        this.setState({
+          btnLoading: false
+        })
+      } catch (err) {
+        message.success('上传失败！')
+        this.setState({
+          btnLoading: false
+        })
+      }
+      // let url = window.URL.createObjectURL(this.image)
+      // this.setState({
+      //   isSelectImg: true,
+      //   imageUrl: url
+      // })
     }
   }
 
   render () {
-    const { imageUrl, isSelectImg } = this.state
+    const { btnLoading } = this.state
     return (
       <div className={styles.layout}>
         <section className={styles.box}>
@@ -41,6 +61,7 @@ export default class Upload extends React.PureComponent {
             type="primary"
             className={styles.upload_btn}
             onClick={this._upload}
+            loading={btnLoading}
           >
             上传
           </Button>
@@ -50,10 +71,10 @@ export default class Upload extends React.PureComponent {
             type="file"
             onChange={this._inputChange}
           />
-          {
+          {/* {
             isSelectImg &&
             <UploadModel imageUrl={imageUrl} />
-          }
+          } */}
         </section>
       </div>
     )
