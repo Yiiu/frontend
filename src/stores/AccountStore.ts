@@ -51,9 +51,13 @@ export class AccountStore {
   }
 
   fetchInfo = async () => {
-    const { data } = await axios.get('/api/user/me')
-    this.setInfo(data)
-    return data
+    try {
+      const { data } = await axios.get('/api/user/me')
+      this.setInfo(data)
+      return data
+    } catch (err) {
+      // console.log(err)
+    }
   }
 
   fetchRefreshToken = async (refreshToken: string) => {
