@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Animate from 'rc-animate'
+// import Animate from 'rc-animate'
 import classNames from 'classnames'
 
 export interface IModalPropTypes {
@@ -15,8 +15,8 @@ export default class Modal extends React.PureComponent<IModalPropTypes> {
     prefixCls: 'rc-dialog',
   }
   render () {
-    const { prefixCls, children, visible, className } = this.props
-    const classnames = classNames(prefixCls, className)
+    const { prefixCls, className } = this.props
+    classNames(prefixCls, className)
     return (
       <div>
         123123

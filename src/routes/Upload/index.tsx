@@ -32,7 +32,7 @@ export default class Upload extends React.Component {
         btnLoading: true
       })
       try {
-        let photo = await this.props[STORT_UPLOAD].fetchUploadPhoto(this.image)
+        await this.props[STORT_UPLOAD].fetchUploadPhoto(this.image)
         message.success('上传成功！')
         this.setState({
           btnLoading: false

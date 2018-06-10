@@ -5,6 +5,9 @@ import { PictureStore } from 'stores'
 
 import { IPictureInfo } from 'models/picture'
 
+import { PictureLayout } from 'components/Layout'
+import { PictureList } from 'components/Picture'
+
 export interface IHomeProp {
 
 }
@@ -16,6 +19,7 @@ export default class Home extends React.Component<IHomeProp> {
     list: [] as IPictureInfo[],
     initState: false
   }
+
   _getList = async () => {
     const { getPictureList } = this.props[STORE_PICTURE] as PictureStore
     let list = await getPictureList()
@@ -23,20 +27,16 @@ export default class Home extends React.Component<IHomeProp> {
       list
     })
   }
+
   componentDidMount () {
     this._getList()
   }
+
   render () {
     return (
-      <div>
-      {
-        this.state.list.map(v => (
-          <div key={v._id}>
-            <img src={`http://yu7er.qiniudn.com/${v.key}`} />
-          </div>
-        ))
-      }
-      </div>
+      <PictureLayout>
+        <PictureList list={this.state.list} />
+      </PictureLayout>
     )
   }
 }

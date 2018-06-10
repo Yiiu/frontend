@@ -8,6 +8,7 @@ export interface IPictureInfo {
   description: string
   info: string
   exif: any
+  key: string
   user: IUserInfo
   views: number
   likes: number
